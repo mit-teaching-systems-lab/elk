@@ -2,9 +2,10 @@
   "name": "elk",
   "version": "1.0.0",
   "description": "role-play game for teachers to learn and practice how to better elicit learner knowledge",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot"
+    "compile": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -21,9 +22,11 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
+    "express": "^4.14.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.9.0",
     "webpack-dev-server": "^1.16.2"
   }
 }
