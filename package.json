@@ -1,0 +1,29 @@
+{
+  "name": "elk",
+  "version": "1.0.0",
+  "description": "role-play game for teachers to learn and practice how to better elicit learner knowledge",
+  "main": "main.js",
+  "scripts": {
+    "start": "webpack-dev-server --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mit-teaching-systems-lab/elk.git"
+  },
+  "author": "Tiffany Wong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mit-teaching-systems-lab/elk/issues"
+  },
+  "homepage": "https://github.com/mit-teaching-systems-lab/elk#readme",
+  "dependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
