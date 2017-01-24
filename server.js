@@ -5,6 +5,9 @@ var webpackConfig = require('./webpack.config.js');
 var app = express();
  
 var compiler = webpack(webpackConfig);
+var http = require('http')
+var server = http.createServer(app)
+var io = require('socket.io').listen(server);
  
 app.use(express.static(__dirname + '/www'));
  
@@ -17,9 +20,160 @@ app.use(webpackDevMiddleware(compiler, {
   },
   historyApiFallback: true,
 }));
- 
-var server = app.listen(3333, function() {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
+
+server.listen(3333);
+
+
+// routing
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
+
+// // TUTORIAL 2
+// //This route is simply run only on first launch just to generate some chat history
+// app.post('/setup', function(req, res) {
+
+// //Array of chat data. Each object properties must match the schema object properties
+//   var chatData = [{
+//     created: new Date(),
+//     content: 'Hi',
+//     username: 'Chris',
+//     room: 'php'
+//   }, {
+//     created: new Date(),
+//     content: 'Hello',
+//     username: 'Obinna',
+//     room: 'laravel'
+//   }, {
+//     created: new Date(),
+//     content: 'Ait',
+//     username: 'Bill',
+//     room: 'angular'
+//   }, {
+//     created: new Date(),
+//     content: 'Amazing room',
+//     username: 'Patience',
+//     room: 'socet.io'
+//   }];
+
+//   //Loop through each of the chat data and insert into the database
+//   for (var c = 0; c < chatData.length; c++) {
+//     //Create an instance of the chat model
+//     var newChat = new Chat(chatData[c]);
+//     //Call save to insert the chat
+//     newChat.save(function(err, savedChat) {
+//       console.log(savedChat);
+//     });
+//   }
+//   //Send a resoponse so the serve would not get stuck
+//   res.send('created');
+// });
+
+// //This route produces a list of chat as filterd by 'room' query
+// app.get('/msg', function(req, res) {
+//   //Find
+//   Chat.find({
+//     'room': req.query.room.toLowerCase()
+//   }).exec(function(err, msgs) {
+//     //Send
+//     res.json(msgs);
+//   });
+// });
+
+
+/*\
+OUR APPLICATION NEEDS TO (TUTORIAL 2)
+Know when our application is launched
+Send all the available rooms on connection
+Listen for a user to connect and assign him/her to a default room
+Listen for when he/she switches room
+And, finally, listen for a new message and only send the message to those in the room at which it was created
+*/
+
+// usernames which are currently connected to the chat
+var usernames = {};
+
+io.sockets.on('connection', function (socket) {
+    
+  // rooms which are currently available in chat
+  var rooms = ['room1','room2','room3'];
+  // when the client emits 'adduser', this listens and executes
+  socket.on('adduser', function(username){
+    // store the username in the socket session for this client
+    socket.username = username;
+    // store the room name in the socket session for this client
+    socket.room = 'room1';
+    // add the client's username to the global list
+    usernames[username] = username;
+    // send client to room 1
+    socket.join('room1');
+    // echo to client they've connected
+    // socket.emit('updatechat', 'SERVER', 'you have connected to room1');
+    socket.emit('updatechat', { user: 'SERVER', text: 'you have connected to room1'});
+    // echo to room 1 that a person has connected to their room
+    // socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
+    socket.broadcast.to('room1').emit('updatechat', { user: 'SERVER', text: username + ' has connected to this room' });
+    
+    socket.emit('updaterooms', rooms, 'room1');
+    console.log("init update username", socket.username)
+    socket.emit('init', socket.username)
+    console.log(usernames)
+    
+  });
+
+  
+  // TUTORIAL 1 
+  // when the client emits 'sendchat', this listens and executes
+  socket.on('sendchat', function (data) {
+    // we tell the client to execute 'updatechat' with 2 parameters
+    console.log("send chat");
+    console.log("user", socket.username);
+    console.log(data);
+    io.sockets.in(socket.room).emit('updatechat', data);
+    // io.sockets.in(socket.room).emit('updatechat', data)
+  });
+  
+/////////////////// CODE FOR UNDERSTANDING HOW DATABASES WORK ////////////////////////////////////
+
+  // //Listens for a new chat message
+ //  socket.on('new message', function(data) {
+ //    //Create message
+ //    var newMsg = new Chat({
+ //      username: data.username,
+ //      content: data.message,
+ //      room: data.room.toLowerCase(),
+ //      created: new Date()
+ //    });
+ //    //Save it to database
+ //    newMsg.save(function(err, msg){
+ //      //Send message to those connected in the room
+ //      io.in(msg.room).emit('message created', msg);
+ //    });
+ //  });
+
+
+
+/////////////////// CODE FOR UNDERSTANDING HOW DIFFERENT ROOMS WORKS ///////////////////////////
+
+  // socket.on('switchRoom', function(newroom){
+  //  socket.leave(socket.room);
+  //  socket.join(newroom);
+  //  socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
+  //  // sent message to OLD room
+  //  socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.username+' has left this room');
+  //  // update socket session room title
+  //  socket.room = newroom;
+  //  socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
+  //  socket.emit('updaterooms', rooms, newroom);
+  // });
+
+  // when the user disconnects.. perform this
+  socket.on('disconnect', function(){
+    console.log("disconnected")
+    // remove the username from global usernames list
+    delete usernames[socket.username];
+    // echo globally that this client has left
+    socket.broadcast.emit('updatechat', {user: "SERVER", text: socket.username + ' has disconnected'});
+    socket.leave(socket.room);
+  });
 });

@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Counter from './Counter';
+import ChatApp from '../Components/ChatApp';
  
 document.addEventListener('DOMContentLoaded', function() {
   ReactDOM.render(
-    React.createElement(Counter),
-    document.getElementById('mount')
+  	React.createElement(ChatApp),
+  	document.getElementById('root')
   );
 });
-
-console.log("Hello World!");

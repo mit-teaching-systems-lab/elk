@@ -14,5 +14,12 @@ Compile
 ---
  
 ```
-npm run compile
+npm run compile 
+```
+
+Run
+---
+ 
+```
+node server.js
 ```
