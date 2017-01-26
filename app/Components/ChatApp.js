@@ -51,11 +51,6 @@ class ChatApp extends React.Component {
 
 	}
 
-	// _initialize(data) {
-	// 	var {users, name} = data;
-	// 	this.setState({users, user: name});
-	// }
-
 	_initialize(username) {
 		this.setState({user: username})
 	}

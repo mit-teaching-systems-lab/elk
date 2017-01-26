@@ -1,3 +1,10 @@
+require('babel-register');
+
+var React = require('react');
+var ReactDOM = require('react-dom/server');
+var Router = require('react-router');
+var routes = require('./app/routes');
+var path = require('path')
 var express = require('express');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpack = require('webpack');
@@ -9,8 +16,8 @@ var http = require('http')
 var server = http.createServer(app)
 var io = require('socket.io').listen(server);
  
-app.use(express.static(__dirname + '/www'));
- 
+app.use(express.static(__dirname + '/app'));
+
 app.use(webpackDevMiddleware(compiler, {
   hot: true,
   filename: 'bundle.js',
@@ -21,13 +28,42 @@ app.use(webpackDevMiddleware(compiler, {
   historyApiFallback: true,
 }));
 
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
+
 server.listen(3333);
 
 
-// routing
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
+// // routing
+// app.get('*', function (req, res) {
+//   res.sendFile(__dirname + '/index.html');
+// });
+
+// Routing tutorial
+// app.use(function(req, res) {
+//   console.log("in rerouting");
+//   console.log("requrl", req.url);
+//   // console.log("res", res);
+//   Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
+//     console.log("redirectlocation", redirectLocation);
+//     // console.log("renderProps", renderProps);
+//     if (err) {
+//       res.status(500).send(err.message)
+//     } else if (redirectLocation) {
+//       res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
+//     } else if (renderProps) {
+//       var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
+//       res.status(200).send(page);
+//     } else {
+//       res.status(404).send('Page Not Found')
+//     }
+//   });
+// });
+ 
+
+// module.export = app;
+
 
 // // TUTORIAL 2
 // //This route is simply run only on first launch just to generate some chat history
