@@ -1,0 +1,57 @@
+{
+	"id": "evolution", // 1-2 word summary e.g. functions, evolution, natural_selection, 
+	"name": "Evolution and Natural Selection", // this will be the name that the users see when selecting games 
+	"subject": "biology",
+	"teacher": {
+		"objective": "Students will be able to explain the evolution of populations",
+		"hints": [ // null if no hints 
+			"The time frame of evolution",
+			"The subject and process of evolution ",
+			"Mutations (physical and on a cellular level)",
+			"What is a mutation?",
+			"Do single animals evolve or populations?",
+			"Why do animals evolve?",
+			"Can you give me an example of when an organism evolved? "
+		]
+	},
+	"students": [
+		{
+			"id": 0,
+			"profile": "I think all mutations occur by chance. Mutations are changes in the DNA and when cell reproduction occurs, mutations happen because there are accidents and mistakes made in the copies. Mistakes happen randomly and thus mutations are also random. Evolution can be thought of as changes over time due to lots of compounded mutations. This means that evolution can be very random. However, only good mutations get passed on so while mutations can be random, evolution always leads to better things in a population. Evolution can happen to a single organism if they have enough mutations. 
+
+Animals can adapt to their environment because only good mutations get passed on. Good being that it is complementary to the environment so that it helps the animal survive. I’ve heard about the moths that turned black over a few generations because there was a factory smoke turned trees black. And so black moths can camouflage on black trees (whereas both were white previously). Due to “natural selection” (not exactly sure what that is but I know its application here), moths that can camouflage don’t die so their genes get passed on. So while the mutation could have created red, orange, gold moths, only the black ones were passed one. And that is how adaptation works. "
+		},
+		{
+			"id": 1,
+			"profile": "I’ve heard of the terms “adaptation”, “mutation” and “evolution” before. I think they are all equivalent to each other. When adaptation occurs, there is a change in physical trait caused by changes in the DNA. A single animal can adapt due to changes in their DNA when cells are being copied and thus evolution can happen to a single organism. While I’ve heard that evolution takes time, it obviously can happen within a single lifespan then if it can happen to a single organism. When it happens to a population, a population have different physical traits and DNA than its ancestors.
+
+I’ve heard stories of animals evolving and adapting to their environments to stay alive. For example, chameleons can change their colour to to blend in with trees. I don’t know exactly how this occurs, but I know animals traits have to do with their DNA, so the environment must have caused mutations in the animal’s DNA to help them survive. Because of this reasoning, I think that mutations cannot be random because their purpose is to make things better. In this case, to help the animal survive. "
+		}
+	],
+	"questions": [
+		{
+			"question": "Cell reproduction can create mutations",
+			"answer": {
+				"0": true, 
+				"1": true // if tf question, use true and false (no quotes),
+			},
+			"type": "tf", // tf: True/False question; mcq: multiple choice question
+		},
+		{
+			"question": "All genetic mutations are harmful",
+			"answer": {
+				"0": false,
+				"1": "?"
+			},
+			"type": "tf", // tf: True/False question; mcq: multiple choice question
+		}
+		{
+			"question": "Mutations happen in DNA",
+			"answer": {
+				"0": true,
+				"1": true
+			},
+			"type": "tf", // tf: True/False question; mcq: multiple choice question
+		}
+	]
+}
