@@ -20,21 +20,10 @@ for (var i = 0; i < rational2.questions.length; i++) {
 	questions.push(q);
 }
 gameBundle["questions"] = questions
-console.log(gameBundle);
-
-var GameWrapper = React.createClass({
-	render: function() {
-		return (
-			<Game gameBundle={gameBundle}/>
-		);
-	}
-
-})
 
 export default (
   <Router history={hashHistory}>
-    <Route path='/' component={GameWrapper}/>
-    <Route path='/chatapp/:chatID' component={ChatApp}/>
+    <Route path='/:gameID' bundle={gameBundle} component={Game}/>
     <Route path='/counter' component={Counter}/>  
   </Router>
 );

@@ -18,7 +18,7 @@ class ChatApp extends React.Component {
 	}
 
 	_connect() {
-		socket.emit('setroom', this.props.params.chatID);
+		socket.emit('setroom', this.props.chatID);
 		socket.emit('adduser', prompt("What's your name?"));
 	}
 
@@ -27,7 +27,7 @@ class ChatApp extends React.Component {
 	}
 
 	_getRoom() {
-		socket.emit('setroom', this.props.params.chatID);
+		socket.emit('setroom', this.props.chatID);
 		console.log("sent room")
 	}
 

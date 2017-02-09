@@ -11,10 +11,11 @@ class GameSelectionPage extends React.Component {
   }
  
   render() {
+    // console.log(this.props.params.gameID);
     return (
     <div>
       <MenuBar />
-      <ChatApp />
+      <ChatApp chatID={this.props.params.gameID}/>
     </div>
   );
   }
