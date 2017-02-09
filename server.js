@@ -130,27 +130,30 @@ And, finally, listen for a new message and only send the message to those in the
 var usernames = {};
 
 io.sockets.on('connection', function (socket) {
-    
+  
+  socket.on('setroom', function(roomID) {
+    socket.room = "room" + roomID;
+  });  
   // rooms which are currently available in chat
-  var rooms = ['room1','room2','room3'];
+  // var rooms = ['room1','room2','room3'];
   // when the client emits 'adduser', this listens and executes
   socket.on('adduser', function(username){
     // store the username in the socket session for this client
     socket.username = username;
+    socket.emit('getroomID');
     // store the room name in the socket session for this client
-    socket.room = 'room1';
     // add the client's username to the global list
     usernames[username] = username;
     // send client to room 1
-    socket.join('room1');
+    socket.join(socket.room);
     // echo to client they've connected
     // socket.emit('updatechat', 'SERVER', 'you have connected to room1');
-    socket.emit('updatechat', { user: 'SERVER', text: 'you have connected to room1'});
+    socket.emit('updatechat', { user: 'SERVER', text: 'you have connected to ' + socket.room });
     // echo to room 1 that a person has connected to their room
     // socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
-    socket.broadcast.to('room1').emit('updatechat', { user: 'SERVER', text: username + ' has connected to this room' });
+    socket.broadcast.to(socket.room).emit('updatechat', { user: 'SERVER', text: username + ' has connected to this room' });
     
-    socket.emit('updaterooms', rooms, 'room1');
+    // socket.emit('updaterooms', rooms, 'room1');
     console.log("init update username", socket.username)
     socket.emit('init', socket.username)
     console.log(usernames)
@@ -182,7 +185,7 @@ io.sockets.on('connection', function (socket) {
  //    });
  //    //Save it to database
  //    newMsg.save(function(err, msg){
- //      //Send message to those connected in the room
+ //      //Send message to those ƒofed in the room
  //      io.in(msg.room).emit('message created', msg);
  //    });
  //  });
@@ -209,7 +212,7 @@ io.sockets.on('connection', function (socket) {
     // remove the username from global usernames list
     delete usernames[socket.username];
     // echo globally that this client has left
-    socket.broadcast.emit('updatechat', {user: "SERVER", text: socket.username + ' has disconnected'});
+    socket.broadcast.to(socket.room).emit('updatechat', {user: "SERVER", text: socket.username + ' has disconnected'});
     socket.leave(socket.room);
   });
 });

@@ -2,36 +2,8 @@ import React from 'react'
 import MessageList from './MessageList';
 import MessageForm from './MessageForm';
 import io from 'socket.io-client'
-let socket = io('http://localhost:3333')
-// var socket = io.connect('http://localhost:8080');
+let socket = io.connect('http://localhost:3333')
 
-
-
-
-
-// function switchRoom(room){
-// 	socket.emit('switchRoom', room);
-// }
-
-
-// // on load of page
-// $(function(){
-// 	// when the client clicks SEND
-// 	$('#datasend').click( function() {
-// 		var message = $('#data').val();
-// 		$('#data').val('');
-// 		// tell server to execute 'sendchat' and send along one parameter
-// 		socket.emit('sendchat', message);
-// 	});
-
-// 	// when the client hits ENTER on their keyboard
-// 	$('#data').keypress(function(e) {
-// 		if(e.which == 13) {
-// 			$(this).blur();
-// 			$('#datasend').focus().click();
-// 		}
-// 	});
-// });
 class ChatApp extends React.Component {
 
 	constructor(props) {
@@ -39,20 +11,24 @@ class ChatApp extends React.Component {
 		this.state = {users: [], messages:[], text: ''};
 		socket.on('init', (username) =>this._initialize(username));
 		socket.on('updatechat', (data) => this._messageRecieve(data));
+		socket.on('getroom', () => this._getRoom());
+		socket.on('connect', () => this._connect());
 		this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
+		this._connect = this._connect.bind(this);
 	}
 
-	componentDidMount() {
-		// on connection to server, ask for user's name with an anonymous callback
-		socket.on('connect', function(){
-			// call the server-side function 'adduser' and send one parameter (value of prompt)
-			socket.emit('adduser', prompt("What's your name?"));
-		});
-
+	_connect() {
+		socket.emit('setroom', this.props.params.chatID);
+		socket.emit('adduser', prompt("What's your name?"));
 	}
 
 	_initialize(username) {
 		this.setState({user: username})
+	}
+
+	_getRoom() {
+		socket.emit('setroom', this.props.params.chatID);
+		console.log("sent room")
 	}
 
 	_messageRecieve(message) {

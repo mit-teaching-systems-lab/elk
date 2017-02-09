@@ -28,12 +28,13 @@ var GameWrapper = React.createClass({
 			<Game gameBundle={gameBundle}/>
 		);
 	}
+
 })
 
 export default (
   <Router history={hashHistory}>
     <Route path='/' component={GameWrapper}/>
-    <Route path='/chatapp' component={ChatApp}/>
+    <Route path='/chatapp/:chatID' component={ChatApp}/>
     <Route path='/counter' component={Counter}/>  
   </Router>
 );
