@@ -128,12 +128,28 @@ And, finally, listen for a new message and only send the message to those in the
 
 // usernames which are currently connected to the chat
 var usernames = {};
+var student = {}
+var data = {}
+
 
 io.sockets.on('connection', function (socket) {
-  
+
   socket.on('setroom', function(roomID) {
     socket.room = "room" + roomID;
-  });  
+    if (roomID in data) { // room has been entered before 
+      if (data[roomID]["atCapacity"]) {
+        socket.emit('fullhouse');
+      } else {
+        data[roomID]["student"] = socket.username;
+        data[roomID]["atCapacity"] = true;
+        socket.emit('role','student');
+      }
+    } else {
+      data[roomID] = {"atCapacity": false, "teacher": socket.username}
+      socket.emit('role', 'teacher');
+    }
+    console.log(data[roomID]);
+  });
   // rooms which are currently available in chat
   // var rooms = ['room1','room2','room3'];
   // when the client emits 'adduser', this listens and executes

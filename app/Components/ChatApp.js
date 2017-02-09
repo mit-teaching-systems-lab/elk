@@ -8,11 +8,12 @@ class ChatApp extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {users: [], messages:[], text: ''};
+		this.state = {users: [], messages:[], text: '', at_capacity: false};
 		socket.on('init', (username) =>this._initialize(username));
 		socket.on('updatechat', (data) => this._messageRecieve(data));
 		socket.on('getroom', () => this._getRoom());
 		socket.on('connect', () => this._connect());
+		socket.on('fullhouse', () => this.full_house());
 		this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
 		this._connect = this._connect.bind(this);
 	}
@@ -66,18 +67,32 @@ class ChatApp extends React.Component {
 		socket.emit('sendchat', message);
 	}
 
+	full_house() {
+		this.setState({at_capacity: true})
+	}
+
+
+
 	render() {
-		return (
-			<div>
-				<MessageList
-					messages={this.state.messages}
-				/>
-				<MessageForm
-					onMessageSubmit={this.handleMessageSubmit}
-					user={this.state.user}
-				/>
-			</div>
-		);
+		if (this.state.at_capacity) {
+			console.log("at capacity here!")
+			return (
+				<h1>Full room</h1>
+			)
+		} else {
+			return (
+				<div>
+
+					<MessageList
+						messages={this.state.messages}
+					/>
+					<MessageForm
+						onMessageSubmit={this.handleMessageSubmit}
+						user={this.state.user}
+					/>
+				</div>
+			);
+		}
 	}
 };
 
