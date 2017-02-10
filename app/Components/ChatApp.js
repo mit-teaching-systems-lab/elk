@@ -8,11 +8,12 @@ class ChatApp extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {users: [], messages:[], text: '', at_capacity: false};
+		this.state = {users: [], messages:[], text: '', at_capacity: false, role: null};
 		socket.on('init', (username) =>this._initialize(username));
 		socket.on('updatechat', (data) => this._messageRecieve(data));
 		socket.on('getroom', () => this._getRoom());
 		socket.on('connect', () => this._connect());
+		socket.on('adduser', (user_role) => this._addUser(user_role));
 		socket.on('fullhouse', () => this.full_house());
 		this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
 		this._connect = this._connect.bind(this);
@@ -20,16 +21,17 @@ class ChatApp extends React.Component {
 
 	_connect() {
 		socket.emit('setroom', this.props.chatID);
+	}
+
+	_addUser(user_role) {
+		console.log("adding user");
+		this.setState({role: user_role});
+		console.log(this.state.role);
 		socket.emit('adduser', prompt("What's your name?"));
 	}
 
 	_initialize(username) {
 		this.setState({user: username})
-	}
-
-	_getRoom() {
-		socket.emit('setroom', this.props.chatID);
-		console.log("sent room")
 	}
 
 	_messageRecieve(message) {
@@ -40,29 +42,6 @@ class ChatApp extends React.Component {
 		this.setState({messages});
 	}
 
-	_userJoined(data) {
-		var {users, messages} = this.state;
-		var {name} = data;
-		users.push(name);
-		messages.push({
-			user: 'APPLICATION BOT',
-			text : name +' Joined'
-		});
-		this.setState({users, messages});
-	}
-
-	_userLeft(data) {
-		var {users, messages} = this.state;
-		var {name} = data;
-		var index = users.indexOf(name);
-		users.splice(index, 1);
-		messages.push({
-			user: 'APPLICATION BOT',
-			text : name +' Left'
-		});
-		this.setState({users, messages});
-	}
-
 	handleMessageSubmit(message) {
 		socket.emit('sendchat', message);
 	}
@@ -70,8 +49,6 @@ class ChatApp extends React.Component {
 	full_house() {
 		this.setState({at_capacity: true})
 	}
-
-
 
 	render() {
 		if (this.state.at_capacity) {

@@ -135,6 +135,7 @@ var data = {}
 io.sockets.on('connection', function (socket) {
 
   socket.on('setroom', function(roomID) {
+    console.log("setting room here");
     socket.room = "room" + roomID;
     if (roomID in data) { // room has been entered before 
       if (data[roomID]["atCapacity"]) {
@@ -142,11 +143,11 @@ io.sockets.on('connection', function (socket) {
       } else {
         data[roomID]["student"] = socket.username;
         data[roomID]["atCapacity"] = true;
-        socket.emit('role','student');
+        socket.emit('adduser','student'); // student + teacher are currently undefined 
       }
     } else {
       data[roomID] = {"atCapacity": false, "teacher": socket.username}
-      socket.emit('role', 'teacher');
+      socket.emit('adduser', 'teacher');
     }
     console.log(data[roomID]);
   });
@@ -154,9 +155,10 @@ io.sockets.on('connection', function (socket) {
   // var rooms = ['room1','room2','room3'];
   // when the client emits 'adduser', this listens and executes
   socket.on('adduser', function(username){
+    console.log("adding user");
     // store the username in the socket session for this client
     socket.username = username;
-    socket.emit('getroomID');
+    // socket.emit('getroomID');
     // store the room name in the socket session for this client
     // add the client's username to the global list
     usernames[username] = username;

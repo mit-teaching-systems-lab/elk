@@ -19,11 +19,11 @@ for (var i = 0; i < rational2.questions.length; i++) {
 	q["question"] = rational2.questions[i].question;
 	questions.push(q);
 }
-gameBundle["questions"] = questions
+gameBundle["questions"] = questions;
 
 export default (
   <Router history={hashHistory}>
     <Route path='/:gameID' bundle={gameBundle} component={Game}/>
-    <Route path='/counter' component={Counter}/>  
+    <Route path='/counter' component={Counter}/>
   </Router>
 );
