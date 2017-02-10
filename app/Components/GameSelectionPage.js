@@ -15,4 +15,4 @@ class GameSelectionPage extends React.Component {
   );
   }
 }
-export default GameSelectionPage;
+export default GameSelectionPage; 
