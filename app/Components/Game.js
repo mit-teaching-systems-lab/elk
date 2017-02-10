@@ -11,16 +11,13 @@ let socket = io.connect('http://localhost:3333')
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {at_capacity: false, role: null, messages: []}
-
-    // sockets
+    this.state = {at_capacity: false, role: null}
     socket.on('connect', () => this._connect());
     socket.on('init', (username) =>this._initialize(username));
-    socket.on('getroom', () => this._getRoom());
-    socket.on('adduser', (user_role) => this._addUser(user_role));
-    socket.on('fullhouse', () => this.full_house());
-
-    socket.on('updatechat', (data) => this._messageRecieve(data));
+    socket.on('getroom', () => this._get_room());
+    socket.on('adduser', (user_role) => this._add_user(user_role));
+    socket.on('fullhouse', () => this._full_house());
+    this.render_profile = this.render_profile.bind(this);
   }
 
   _connect() {
@@ -31,47 +28,32 @@ class Game extends React.Component {
     this.setState({user: username})
   }
 
-  _addUser(user_role) {
-    console.log("adding user");
+  _add_user(user_role) {
     this.setState({role: user_role});
-    console.log(this.state.role);
+    console.log("user role: " + user_role);
     socket.emit('adduser', prompt("What's your name?"));
   }
  
-  _getRoom() {
+  _get_room() {
     socket.emit('setroom', this.props.params.gameID);
-    console.log("sent room")
    }
 
-  full_house() {
+  _full_house() {
     this.setState({at_capacity: true})
-  }
-
-  _messageRecieve(message) {
-    // console.log("_messageRecieve")
-    // console.log(this.state)
-    var {messages} = this.state;
-    messages.push(message);
-    this.setState({messages});
-  }
-
-  handleMessageSubmit(message) {
-    socket.emit('sendchat', message);
   }
 
   render() {
       if (this.state.at_capacity) {
-        console.log("at capacity here!")
         return (
           <h1>Full room</h1>
         )
       } else {
-      // console.log(this.props.params.gameID);
         return (
-        <div>
-          <MenuBar />
-          <ChatApp onMessageSubmit={this.handleMessageSubmit} user={this.state.user} messages={this.state.messages} chatID={this.props.params.gameID}/>
-        </div>
+          <div>
+            <MenuBar />
+            <ChatApp socket={socket} user={this.state.user}/>
+            <Profile role={this.state.role} profile_data={this.props.route.bundle[this.state.role]} />
+          </div>
     );
     }
   }
