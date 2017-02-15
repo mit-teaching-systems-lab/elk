@@ -32,7 +32,7 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 
-server.listen(3333);
+server.listen(process.env.PORT);
 
 
 // // routing
