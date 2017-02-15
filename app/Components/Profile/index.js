@@ -5,7 +5,7 @@ class Profile extends React.Component {
 		super(props);
 	}
 
-	render_profile() {
+	render() {
 		var profile_data = this.props.profile_data;
 		var role = this.props.role;
 	    if (role == "teacher") {
@@ -14,13 +14,15 @@ class Profile extends React.Component {
 	          <h1>Teacher Objective</h1>
 	          <p>{profile_data.objective}</p>
 	          <h1>Hints</h1>
+	          <ul>
 	          {
-	            profile_data.hints.map((hint) => {
+	            profile_data.hints.map(function(hint,i) {
 	              return (
-	                <p>{hint}</p>
+	                <li style={{color: 'green'}} key={i} >{hint}</li>
 	              );
 	            })
 	          }
+	          </ul>
 	        </div>
 	      )
 	    } else if (role == "student"){
@@ -30,6 +32,8 @@ class Profile extends React.Component {
 	          <p>{profile_data.profile}</p>
 	        </div>
 	      )
+	    } else {
+	    	return null;
 	    }
 	  }
 }

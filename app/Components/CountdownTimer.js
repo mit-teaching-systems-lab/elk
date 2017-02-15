@@ -8,9 +8,11 @@ class CountdownTimer extends React.Component {
   }
 
   tick() {
+    // console.log(this.props)
     this.setState({secondsRemaining: this.state.secondsRemaining - 1});
     if (this.state.secondsRemaining <= 0) {
       clearInterval(this.interval);
+      // this.props.timer_at_zero();
     }
   }
 

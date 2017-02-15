@@ -1,4 +1,4 @@
-require('babel-register');
+// require('babel-register');
 
 var React = require('react');
 var ReactDOM = require('react-dom/server');

@@ -4,7 +4,7 @@ import App from './Components/App';
 import Counter from './Components/Counter';
 import ChatApp from './Components/ChatApp';
 import GameSelectionPage from './Components/GameSelectionPage';
-import Game from './Components/Game'
+import Game from './Components/Game/index.js'
 import rational2 from '../GameBundles/rational2.json';
 
 console.log("routes being called!")
