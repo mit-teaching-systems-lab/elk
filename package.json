@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mit-teaching-systems-lab/elk#readme",
   "dependencies": {
+    "babel-register": "^6.23.0",
     "express": "^4.14.0",
     "mongoose": "",
     "react": "^15.4.2",
