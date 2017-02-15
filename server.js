@@ -32,7 +32,9 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 
-server.listen(process.env.PORT);
+
+var port = process.env.NODE_ENV == "production" ? process.env.PORT : '3333';
+server.listen(port);
 
 
 // // routing

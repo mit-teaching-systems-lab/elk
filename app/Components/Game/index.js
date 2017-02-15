@@ -6,7 +6,7 @@ import Quiz from '../Quiz';
 import Notepad from '../Notepad';
 
 import io from 'socket.io-client';
-let socket = io.connect('https://tsl-elk.herokuapp.com');
+let socket = io.connect('');
 
  
 class Game extends React.Component {
