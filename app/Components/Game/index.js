@@ -56,11 +56,16 @@ class Game extends React.Component {
       } else {
         return (
           <div >
-
-            <div style={{display:'flex', flexDirection:'row', flex:1}}>
-              <ChatApp socket={socket} user={this.state.user}/>
-              <Profile role={this.state.role} profile_data={this.props.route.bundle[this.state.role]} />
-              <Quiz questions={this.props.route.bundle.questions}/>
+            <div style={{display:'flex', flexDirection:'row'}}>
+              <div style={{flex:1}}>
+                <ChatApp socket={socket} user={this.state.user}/>
+              </div>
+              <div style={{flex:1}}>
+                <Profile role={this.state.role} profile_data={this.props.route.bundle[this.state.role]} />
+              </div >
+              <div style={{flex:1}}>
+                <Quiz questions={this.props.route.bundle.questions}/>
+              </div>
             </div>
           </div>
     );
