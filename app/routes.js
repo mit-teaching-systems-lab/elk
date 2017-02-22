@@ -3,17 +3,27 @@ import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 're
 import App from './Components/App';
 import Counter from './Components/Counter';
 import ChatApp from './Components/ChatApp';
+import GameSelectionPage from './Components/GameSelectionPage';
+import Game from './Components/Game/index.js'
+import rational2 from '../GameBundles/rational2.json';
 
 console.log("routes being called!")
 
-const Home = () => <h1>Hello from Home!</h1>
-const Address = () => <h1>We are located at 555 Jackson St.</h1>
+var gameBundle = {};
+gameBundle["teacher"] = rational2.teacher;
+gameBundle["student"] = rational2.students[0]
+var questions = []
+for (var i = 0; i < rational2.questions.length; i++) {
+	var q = {};
+	q["answer"] = rational2.questions[i].answer["0"];
+	q["question"] = rational2.questions[i].question;
+	questions.push(q);
+}
+gameBundle["questions"] = questions;
 
 export default (
   <Router history={hashHistory}>
-    <Route path='/' component={Home} />
-    <Route path='/address' component={Address} />
-    <Route path='/chatapp' component={ChatApp}/>
-    <Route path='/counter' component={Counter}/>  
+    <Route path='/:gameID' bundle={gameBundle} component={Game}/>
+    <Route path='/counter' component={Counter}/>
   </Router>
 );
