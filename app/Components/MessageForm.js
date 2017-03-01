@@ -8,33 +8,38 @@ class MessageForm extends React.Component {
     this.changeHandler = this.changeHandler.bind(this);
   }
 
-	handleSubmit(e) {
-		e.preventDefault();
-		var message = {
-			user : this.props.user,
-			text : this.state.text
-		}
-		this.props.onMessageSubmit(message);	
-		this.setState({ text: '' });
-	}
+  handleSubmit(e) {
+    e.preventDefault();
+    var message = {
+      user : this.props.user,
+      text : this.state.text
+    };
+    this.props.onMessageSubmit(message);  
+    this.setState({ text: '' });
+  }
 
-	changeHandler(e) {
-		this.setState({ text : e.target.value });
-	}
+  changeHandler(e) {
+    this.setState({ text : e.target.value });
+  }
 
   render() {
-		return(
-			<div className='message_form'>
-				<h3>Write New Message</h3>
-				<form onSubmit={this.handleSubmit}>
-					<input
-						onChange={this.changeHandler}
-						value={this.state.text}
-					/>
-				</form>
-			</div>
-		);
-	}
+    return(
+      <div className='message_form'>
+        <h3>Write New Message</h3>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            onChange={this.changeHandler}
+            value={this.state.text}
+          />
+        </form>
+      </div>
+    );
+  }
 }
+
+MessageForm.propTypes = {
+  user: React.PropTypes.string,
+  onMessageSubmit: React.PropTypes.func
+};
 
 export default MessageForm;

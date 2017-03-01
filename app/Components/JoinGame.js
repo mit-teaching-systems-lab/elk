@@ -7,12 +7,12 @@ class JoinGame extends React.Component {
  
   render() {
     return (
-		<div>
+    <div>
       Enter code to join an existing game!
       <input/>
       <button>Enter Game!</button>
-		</div>
-	);
+    </div>
+    );
   }
 }
 export default JoinGame;
