@@ -11,7 +11,7 @@ class MessageList extends React.Component {
 		<div className='messages' style={{
           overflowScrolling: "touch", 
           WebkitOverflowScrolling: "touch", 
-          overflowy: scroll, 
+          overflowy: "scroll", 
           maxHeight: 400}}>
         <h2> Conversation: </h2>
         {

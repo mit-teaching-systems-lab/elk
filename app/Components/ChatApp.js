@@ -25,9 +25,14 @@ class ChatApp extends React.Component {
 	render() {
 		return (
 			<div>
-				<MessageList 
-					messages={this.state.messages}
-				/>
+				<div style={{overflow:"scroll", height:500}}>
+					<MessageList 
+						messages={this.state.messages}
+					
+					
+
+					/>
+				</div>
 				<MessageForm
 					onMessageSubmit={this.handleMessageSubmit}
 					user={this.props.user}
