@@ -1,16 +1,17 @@
-import React from 'react'
+import React from 'react';
 import MessageList from './MessageList';
 import MessageForm from './MessageForm';
-import io from 'socket.io-client'
+
+
 
 class ChatApp extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {messages:[]}
-		this.props.socket.on('updatechat', (data) => this._messageRecieve(data));
-		this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {messages:[]};
+    this.props.socket.on('updatechat', (data) => this._messageRecieve(data));
+    this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
+  }
 
   _messageRecieve(message) {
     var {messages} = this.state;
@@ -22,19 +23,26 @@ class ChatApp extends React.Component {
     this.props.socket.emit('sendchat', message);
   }
 
-	render() {
-		return (
-			<div>
-				<MessageList 
-					messages={this.state.messages}
-				/>
-				<MessageForm
-					onMessageSubmit={this.handleMessageSubmit}
-					user={this.props.user}
-				/>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div>
+        <div style={{overflow:"scroll", height:500}}>
+          <MessageList 
+            messages={this.state.messages}
+          />
+        </div>
+        <MessageForm
+          onMessageSubmit={this.handleMessageSubmit}
+          user={this.props.user}
+        />
+      </div>
+    );
+  }
+}
+
+ChatApp.propTypes = {
+  socket: React.PropTypes.object,
+  user: React.PropTypes.object
 };
 
 export default ChatApp;
