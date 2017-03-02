@@ -56,9 +56,6 @@ class Game extends React.Component {
   }
 
   render() {
-    var gameID = this.props.params.gameID;
-    console.log("game ID extracted from URL: " + gameID);
-    console.log("gameID type: " + typeof gameID);
     if (!this.state.is_active_game) {
       return (
         <h1> This page does not exit </h1>
