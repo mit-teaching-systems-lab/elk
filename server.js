@@ -35,9 +35,18 @@ server.listen(port);
 // usernames which are currently connected to the chat
 var usernames = {};
 var data = {};
-
+var gameIDs = {};
 
 io.on('connection', function (socket) {
+  // create a new game from app.js
+  socket.on('newgame', function() {
+    var gameID = Math.round((Math.random()*10000));
+    while (gameID in gameIDs) {
+      gameID = Math.round((Math.random()*10000));
+    }
+    socket.emit('assigngameID', gameID);
+  });
+
   socket.on('setroom', function(roomID) {
     socket.room = "room" + roomID;
     if (roomID in data) { // room has been entered before 
