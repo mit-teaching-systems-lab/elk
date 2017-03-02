@@ -8,7 +8,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        
+        <button> Create New Game </button>
+        <button> Join Game </button>
       </div>
     );
   }
