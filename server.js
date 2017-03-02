@@ -1,9 +1,5 @@
 require('babel-register');
 
-// var React = require('react');
-// var ReactDOM = require('react-dom/server');
-// var Router = require('react-router');
-// var routes = require('./app/routes');
 var path = require('path');
 var express = require('express');
 var webpackDevMiddleware = require('webpack-dev-middleware');
