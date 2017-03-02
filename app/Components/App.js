@@ -7,29 +7,37 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.joinGame = this.joinGame.bind(this);
-    socket.on('assigngameID', (gameID) => this._assign_game_ID());
-    this.state = {value: ""};
+    socket.on('assigngameID', (gameID) => this._assign_game_ID(gameID));
+    socket.on('isgameID', (flag) => this._is_game_ID(flag));
+    this.state = {value: "", warning_on: false};
     this.handleChange = this.handleChange.bind(this);
     this.joinGame = this.joinGame.bind(this);
   }
 
   joinGame(e) {
     e.preventDefault();
-
-    window.location = '/#/' + this.state.value;
+    socket.emit('joingame', this.state.value);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({value: event.target.value, warning_on: false});
   }
 
   _assign_game_ID(gameID) {
     window.location = '/#/' + gameID;
   }
 
+  _is_game_ID(flag) {
+    if (flag) {
+      window.location = '/#/' + this.state.value;
+    } else {
+      this.setState({warning_on: true});
+    }
+  }
+
   createGame(e) {
     e.preventDefault();
-    socket.emit("new_game");
+    socket.emit("newgame");
   }
 
   render() {
@@ -40,6 +48,7 @@ class App extends React.Component {
           <input type="text" value={this.state.value} onChange={this.handleChange}/>
           <input type="submit" value="Join Game"/>
         </form>
+        {this.state.warning_on ? "Please enter an existing game number" : null}
       </div>
     );
   }

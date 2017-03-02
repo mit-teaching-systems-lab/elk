@@ -35,7 +35,7 @@ server.listen(port);
 // usernames which are currently connected to the chat
 var usernames = {};
 var data = {};
-var gameIDs = {};
+var gameIDs = new Set();
 
 io.on('connection', function (socket) {
   // create a new game from app.js
@@ -44,7 +44,12 @@ io.on('connection', function (socket) {
     while (gameID in gameIDs) {
       gameID = Math.round((Math.random()*10000));
     }
+    gameIDs.add(gameID);
     socket.emit('assigngameID', gameID);
+  });
+
+  socket.on('joingame', function(gameID) {
+    socket.emit('isgameID', gameIDs.has(parseInt(gameID)));
   });
 
   socket.on('setroom', function(roomID) {
