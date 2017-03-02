@@ -5,7 +5,6 @@ import Quiz from '../Quiz';
 
 import io from 'socket.io-client';
 let socket = io.connect('');
-
  
 class Game extends React.Component {
   constructor(props) {
@@ -16,6 +15,10 @@ class Game extends React.Component {
     socket.on('getroom', () => this._get_room());
     socket.on('adduser', (user_role) => this._add_user(user_role));
     socket.on('fullhouse', () => this._full_house());
+  }
+
+  componentDidMount() {
+    socket.emit('setroom', this.props.params.gameID);
   }
 
   _connect() {
@@ -43,7 +46,6 @@ class Game extends React.Component {
     this.setState({round_over: true});
   }
 
-//             <MenuBar round_over={this.round_over} style={{position:'fixed', top:0,left:0,right:0}}/>
   render() {
     if (this.state.at_capacity) {
       return (
@@ -70,7 +72,7 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  route: React.PropTypes.route,
+  route: React.PropTypes.object,
   params: React.PropTypes.object
 };
 

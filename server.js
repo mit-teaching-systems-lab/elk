@@ -1,9 +1,5 @@
 require('babel-register');
 
-// var React = require('react');
-// var ReactDOM = require('react-dom/server');
-// var Router = require('react-router');
-// var routes = require('./app/routes');
 var path = require('path');
 var express = require('express');
 var webpackDevMiddleware = require('webpack-dev-middleware');
@@ -39,9 +35,22 @@ server.listen(port);
 // usernames which are currently connected to the chat
 var usernames = {};
 var data = {};
+var gameIDs = new Set();
 
+io.on('connection', function (socket) {
+  // create a new game from app.js
+  socket.on('newgame', function() {
+    var gameID = Math.round((Math.random()*10000));
+    while (gameID in gameIDs) {
+      gameID = Math.round((Math.random()*10000));
+    }
+    gameIDs.add(gameID);
+    socket.emit('assigngameID', gameID);
+  });
 
-io.sockets.on('connection', function (socket) {
+  socket.on('joingame', function(gameID) {
+    socket.emit('isgameID', gameIDs.has(parseInt(gameID)));
+  });
 
   socket.on('setroom', function(roomID) {
     socket.room = "room" + roomID;
