@@ -23,7 +23,7 @@ class Quiz extends React.Component {
 }
 
 Quiz.propTypes = {
-  questions: React.PropTypes.object
+  questions: React.PropTypes.array
 };
 
 export default Quiz;

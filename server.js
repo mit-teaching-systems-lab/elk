@@ -37,8 +37,7 @@ var usernames = {};
 var data = {};
 
 
-io.sockets.on('connection', function (socket) {
-
+io.on('connection', function (socket) {
   socket.on('setroom', function(roomID) {
     socket.room = "room" + roomID;
     if (roomID in data) { // room has been entered before 
