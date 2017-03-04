@@ -35,15 +35,14 @@ class App extends React.Component {
     }
   }
 
-  createGame(e) {
-    e.preventDefault();
+  createGame() {
     socket.emit("newgame");
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.createGame}> Create New Game </button>
+        <button onClick={() => this.createGame()}> Create New Game as Student </button>
         <form onSubmit={this.joinGame} className="MyForm">
           <input type="text" value={this.state.value} onChange={this.handleChange}/>
           <input type="submit" value="Join Game"/>

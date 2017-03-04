@@ -35,7 +35,7 @@ server.listen(port);
 // usernames which are currently connected to the chat
 var usernames = {};
 var data = {};
-var gameIDs = new Set();
+var gameIDs = {};
 
 io.on('connection', function (socket) {
   // create a new game from app.js
@@ -44,16 +44,39 @@ io.on('connection', function (socket) {
     while (gameID in gameIDs) {
       gameID = Math.round((Math.random()*10000));
     }
-    gameIDs.add(gameID);
+    gameIDs[gameID] = {};
+    console.log(gameIDs);
     socket.emit('assigngameID', gameID);
   });
 
+  var takenRoles = null;
   socket.on('joingame', function(gameID) {
-    socket.emit('isgameID', gameIDs.has(parseInt(gameID)));
+    var isGameID = gameID in gameIDs;
+    console.log(isGameID);
+    if (isGameID) {
+      takenRoles = Object.keys(gameIDs[gameID]);
+    }
+    console.log(takenRoles);
+    socket.emit('isgameID', isGameID, takenRoles);
   });
 
+  // sets role from RoleSelectionMenu
+  socket.on('settingrole', function(selectedRole, gameID) {
+    console.log("selectedRole" + selectedRole);
+    console.log("gameID" + gameID);
+    if (selectedRole!="observer") {
+      console.log("selectedRole: " + selectedRole);
+      console.log(gameIDs);
+      // console
+      console.log(gameIDs[gameID]);
+      gameIDs[gameID][selectedRole] = null;
+      console.log(gameIDs);
+    }
+  });
+
+  // communicates with Game 
   socket.on('setroom', function(roomID) {
-    socket.room = "room" + roomID;
+    socket.room = "room " + roomID;
     if (roomID in data) { // room has been entered before 
       if (data[roomID]["atCapacity"]) {
         socket.emit('fullhouse');
