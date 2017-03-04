@@ -7,11 +7,17 @@ class NewGameButton extends React.Component {
  
   render() {
     return (
-		<div className="message">
-			<strong>{this.props.user}: </strong> 
-			<span> {this.props.text}</span>		
-		</div>
-	);
+    <div className="message">
+      <strong>{this.props.user}: </strong> 
+      <span> {this.props.text}</span>   
+    </div>
+    );
   }
 }
+
+NewGameButton.propTypes = {
+  user: React.PropTypes.string,
+  text: React.PropTypes.string
+};
+
 export default NewGameButton;

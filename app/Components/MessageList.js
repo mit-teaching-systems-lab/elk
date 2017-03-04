@@ -8,11 +8,11 @@ class MessageList extends React.Component {
  
   render() {
     return (
-		<div className='messages' style={{
-          overflowScrolling: "touch", 
-          WebkitOverflowScrolling: "touch", 
-          overflowy: "scroll", 
-          maxHeight: 400}}>
+      <div className='messages' style={{
+        overflowScrolling: "touch", 
+        WebkitOverflowScrolling: "touch", 
+        overflowy: "scroll", 
+        maxHeight: 400}}>
         <h2> Conversation: </h2>
         {
           this.props.messages.map((message, i) => {
@@ -26,7 +26,12 @@ class MessageList extends React.Component {
           })
         } 
       </div>
-	);
+    );
   }
 }
+
+MessageList.propTypes = {
+  messages: React.PropTypes.array
+};
+
 export default MessageList;
