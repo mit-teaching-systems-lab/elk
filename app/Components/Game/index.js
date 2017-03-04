@@ -11,8 +11,8 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {at_capacity: false, role: null, round_over: false, is_active_game: false, takenRoles: null};
-    socket.on('connect', () => this._connect());
-    socket.on('init', (username) =>this._initialize(username));
+    // socket.on('connect', () => this._connect());
+    // socket.on('init', (username) =>this._initialize(username));
     socket.on('getroom', () => this._get_room());
     socket.on('adduser', (user_role) => this._add_user(user_role));
     socket.on('fullhouse', () => this._full_house());
@@ -22,19 +22,14 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
-    console.log(this.props.params.gameID);
     socket.emit('joingame', this.props.params.gameID);
   }
 
-  _connect(takenRoles) { // not called anymore 
-    
-    if (this.state.is_active_game) {
-      
-      // socket.emit('setrole');
-      socket.emit('setroom', this.props.params.gameID);
-    }
-  }
+  // _connect(takenRoles) { // not called anymore 
+  //   if (this.state.is_active_game) {
+  //     socket.emit('setroom', this.props.params.gameID);
+  //   }
+  // }
 
   setRoleOptions(takenRoles) {
     // var takenRoles = this.props.takenRoles;
@@ -59,28 +54,24 @@ class Game extends React.Component {
         gameID={this.props.params.gameID}
         studentDisabled={studentDisabled}
         teacherDisabled={teacherDisabled}/>
-    )
+    );
   }
 
-  _initialize(username) {
-    this.setState({user: username});
-  }
+  // _initialize(username) {
+  //   this.setState({user: username});
+  // }
 
   _is_game_ID(flag, takenRoles) {
-    console.log("taken roles");
-    console.log(takenRoles)
     
     if (flag) {
       this.setState({takenRoles: takenRoles});
-      // this._connect(takenRoles);
     }
     this.setState({is_active_game: flag});
   }
 
-  _add_user(user_role) {
-    this.setState({role: user_role});
-    socket.emit('adduser', prompt("What's your name?"));
-  }
+  // _add_user(user_role) {
+  //   socket.emit('adduser', prompt("What's your name?"));
+  // }
  
   _get_room() {
     socket.emit('setroom', this.props.params.gameID);
@@ -100,12 +91,10 @@ class Game extends React.Component {
 
   render() {
     if (!this.state.is_active_game) {
-      console.log("not an active game");
       return (
         <h1> This page does not exit </h1>
       );
     } else if (this.state.role==null) { // role hasn't been set yet
-      console.log("no roles exist")
       return(
         this.setRoleOptions(this.state.takenRoles)
       );
@@ -120,7 +109,7 @@ class Game extends React.Component {
         <div >
           <div style={{display:'flex', flexDirection:'row'}}>
             <div style={{flex:1}}>
-              <ChatApp socket={socket} user={this.state.user}/>
+              <ChatApp socket={socket} user={this.state.role}/>
             </div>
             <div style={{flex:1}}>
               <Profile role={this.state.role} profile_data={this.props.route.bundle[this.state.role]} />
