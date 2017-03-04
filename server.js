@@ -34,8 +34,7 @@ server.listen(port);
 
 // usernames which are currently connected to the chat
 var usernames = {};
-var data = {};
-var gameIDs = new Set();
+var gameIDs = {};
 
 io.on('connection', function (socket) {
   // create a new game from app.js
@@ -44,44 +43,30 @@ io.on('connection', function (socket) {
     while (gameID in gameIDs) {
       gameID = Math.round((Math.random()*10000));
     }
-    gameIDs.add(gameID);
+    gameIDs[gameID] = {};
     socket.emit('assigngameID', gameID);
   });
 
+  var takenRoles = null;
   socket.on('joingame', function(gameID) {
-    socket.emit('isgameID', gameIDs.has(parseInt(gameID)));
+    var isGameID = gameID in gameIDs;
+    if (isGameID) {
+      takenRoles = Object.keys(gameIDs[gameID]);
+    }
+    socket.emit('isgameID', isGameID, takenRoles);
   });
 
-  socket.on('setroom', function(roomID) {
-    socket.room = "room" + roomID;
-    if (roomID in data) { // room has been entered before 
-      if (data[roomID]["atCapacity"]) {
-        socket.emit('fullhouse');
-      } else {
-        data[roomID]["student"] = socket.username;
-        data[roomID]["atCapacity"] = true;
-        socket.emit('adduser','student'); // student + teacher are currently undefined 
-      }
-    } else {
-      data[roomID] = {"atCapacity": false, "teacher": socket.username};
-      socket.emit('adduser', 'teacher');
+  // sets role from RoleSelectionMenu
+  socket.on('settingrole', function(selectedRole, gameID) {
+    if (selectedRole!="observer") {
+      gameIDs[gameID][selectedRole] = null;
+      socket.room = gameID;
+      socket.username = selectedRole;
+      socket.join(socket.room);
+      socket.emit('updatechat', { user: 'SERVER', text: 'you have connected to game ' + socket.room });
+      socket.broadcast.to(socket.room).emit('updatechat', { user: 'SERVER', text: socket.username + ' has connected to this room' });
     }
   });
-
-  // when the client emits 'adduser', this listens and executes
-  socket.on('adduser', function(username){
-    // store the username in the socket session for this client
-    socket.username = username;
-    // store the room name in the socket session for this client
-    // add the client's username to the global list
-    usernames[username] = username;
-    // send client to room 1
-    socket.join(socket.room);
-    socket.emit('updatechat', { user: 'SERVER', text: 'you have connected to ' + socket.room });
-    socket.broadcast.to(socket.room).emit('updatechat', { user: 'SERVER', text: username + ' has connected to this room' });
-    socket.emit('init', socket.username);
-  });
-
 
   // when the client emits 'sendchat', this listens and executes
   socket.on('sendchat', function (data) {

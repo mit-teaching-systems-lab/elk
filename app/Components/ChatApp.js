@@ -2,8 +2,6 @@ import React from 'react';
 import MessageList from './MessageList';
 import MessageForm from './MessageForm';
 
-
-
 class ChatApp extends React.Component {
 
   constructor(props) {
