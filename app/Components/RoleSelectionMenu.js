@@ -6,7 +6,6 @@ class RoleSelectionMenu extends React.Component {
     this.state = {selectedRole: null, studentDisabled: false, teacherDisabled: false};
     this.handleOptionChange = this.handleOptionChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    // this.setOptions = this.setOptions.bind(this);
   }
 
   handleOptionChange(changeEvent) {
@@ -17,21 +16,11 @@ class RoleSelectionMenu extends React.Component {
 
   handleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault();
-    console.log("setrole called from RoleSelectionMenu");
-    console.log("gameID type");
-    console.log(typeof this.props.gameID)
-    console.log("this.props.gameID" + this.props.gameID);
     this.props.socket.emit('settingrole', this.state.selectedRole, this.props.gameID);
     this.props.selectRole(this.state.selectedRole);
-    console.log('You have selected:', this.state.selectedRole);
   }
 
-  
-
   render() {
-    // set options 
-    console.log(this.props.takenRoles);
-    // this.setOptions();
     return (
       <form onSubmit={this.handleFormSubmit}>
         <label>
