@@ -3,7 +3,6 @@ import MessageList from './MessageList';
 import MessageForm from './MessageForm';
 
 class ChatApp extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {messages:[]};

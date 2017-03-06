@@ -13,6 +13,7 @@ class Game extends React.Component {
     socket.on('isgameID', (flag, takenRoles) => this._is_game_ID(flag, takenRoles));
     this.setRoleOptions = this.setRoleOptions.bind(this);
     this.selectRole = this.selectRole.bind(this);
+    this.submitAnswers = this.submitAnswers.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +59,9 @@ class Game extends React.Component {
     this.setState({role: role});
   }
 
+  submitAnswers(answerChoices) {
+  }
+
   render() {
     if (!this.state.is_active_game) {
       return (
@@ -83,7 +87,9 @@ class Game extends React.Component {
               <Profile role={this.state.role} profile_data={this.props.route.bundle[this.state.role]} />
             </div >
             <div style={{flex:1}}>
-              <Quiz questions={this.props.route.bundle.questions}/>
+              <Quiz 
+                submitAnswers={this.submitAnswers}
+                questions={this.props.route.bundle.questions}/>
             </div>
           </div>
         </div>
