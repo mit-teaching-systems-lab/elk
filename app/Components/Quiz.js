@@ -4,7 +4,7 @@ class Quiz extends React.Component {
   constructor(props) {
     super(props);
     this.handleOptionChange = this.handleOptionChange.bind(this);
-    this.state = {answerChoices:{}, warningOn: false};
+    this.state = {answerChoices:{}, warningOn: false, submitted: false};
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
@@ -14,6 +14,7 @@ class Quiz extends React.Component {
     if (this.props.questions.length != Object.keys(answerChoices).length) {
       this.setState({warningOn: true});
     } else {
+      this.setState({submitted: true});
       this.props.submitAnswers(this.state.answerChoices);
     }
   }
@@ -52,9 +53,10 @@ class Quiz extends React.Component {
             );
           })
         }
-        <button className="btn btn-default" type="submit">Save</button>
+        <button disabled={this.state.submitted} className="btn btn-default" type="submit">Save</button>
         </form>
       {this.state.warningOn ? <p>Error: Please select an option for each question</p> : null}
+      {this.state.submitted ? <p>Your answers have been submitted</p> : null}
       </div>
     );
   }
