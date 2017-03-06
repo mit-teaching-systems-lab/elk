@@ -9,7 +9,7 @@ let socket = io.connect('');
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {atCapacity: false, role: null, roundOver: false, isActiveGame: false, takenRoles: null};
+    this.state = {scoreAvailable: false, atCapacity: false, role: null, roundOver: true, isActiveGame: false, takenRoles: null, answerChoices: null};
     socket.on('isgameID', (flag, takenRoles) => this._isGameID(flag, takenRoles));
     this.setRoleOptions = this.setRoleOptions.bind(this);
     this.selectRole = this.selectRole.bind(this);
@@ -56,16 +56,36 @@ class Game extends React.Component {
   }
 
   submitAnswers(answerChoices) {
-    if this.state.role == "teacher" {
-      // this.setState{answers: gameAnswer}
-    } else { // is student
-      this.setState({studentSubmitted:true}_
+    if (this.state.role != "observer") {
+      socket.emit('setanswer', answerChoices, this.state.role, this.props.params.gameID);
+      this.setState({answerChoices: answerChoices});
+    } 
+  }
+
+// when should the student calculate their score? 
+  getAnswerKey(answerKey, scoreAvailable) {
+    if (scoreAvailable) { // everyone has submitted their scores
+      if (this.state.role == 'teacher') {
+        // calculate score by ocmparing to answerKey
+      } else {
+        // calculate score by comparing to "true" answer
+      }
     }
   }
 
-  // Idea 
-  // teaches have their answers once their answers are submitted 
   render() {
+    var quiz = (
+        <Quiz 
+          submitAnswers={this.submitAnswers}
+          questions={this.props.route.bundle.questions}
+          observer={this.state.role=="observer"}/>
+        );
+    var score = <p> SCORE AVAILABLE </p>;
+    var challenge = (
+      <div style={{flex:1}}>
+        {this.state.scoreAvailable? score : quiz}
+      </div>
+    );
     if (!this.state.isActiveGame) {
       return (
         <h1> This page does not exit </h1>
@@ -80,7 +100,6 @@ class Game extends React.Component {
           <h1>Full room</h1>
       );
     } else {
-      // student submission vs teacher submission
       return (
         <div >
           <div style={{display:'flex', flexDirection:'row'}}>
@@ -90,11 +109,7 @@ class Game extends React.Component {
             <div style={{flex:1}}>
               <Profile role={this.state.role} profileData={this.props.route.bundle[this.state.role]} />
             </div >
-            <div style={{flex:1}}>
-              <Quiz 
-                submitAnswers={this.submitAnswers}
-                questions={this.props.route.bundle.questions}/>
-            </div>
+            {this.state.roundOver ? challenge : null}
           </div>
         </div>
       );

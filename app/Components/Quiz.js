@@ -27,6 +27,12 @@ class Quiz extends React.Component {
   }
 
   render() {
+    var submitMessage = (
+      <div>
+        <p> Your answers have been submitted.</p>
+        <p> Please wait while the other player submits their guesses </p>
+      </div>
+      );
     return (
       <div>
         <h1>Challenge</h1>
@@ -39,13 +45,13 @@ class Quiz extends React.Component {
                 <p>{q.question}</p>
                 <div className="radio">
                     <label>
-                      <input onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value="true" />
+                      <input disabled={this.props.observer} onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value="true" />
                       True
                     </label>
                   </div>
                   <div className="radio">
                     <label>
-                      <input onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value="false" />
+                      <input disabled={this.props.observer} onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value="false" />
                       False
                     </label>
                   </div>
@@ -53,10 +59,11 @@ class Quiz extends React.Component {
             );
           })
         }
-        <button disabled={this.state.submitted} className="btn btn-default" type="submit">Save</button>
+        <button disabled={this.state.submitted || this.props.observer} className="btn btn-default" type="submit">Save</button>
         </form>
+      {this.props.observer ? <p><b> Players are submitting their guesses</b></p> : null}
       {this.state.warningOn ? <p>Error: Please select an option for each question</p> : null}
-      {this.state.submitted ? <p>Your answers have been submitted</p> : null}
+      {this.state.submitted ? submitMessage : null}
       </div>
     );
   }
@@ -64,7 +71,8 @@ class Quiz extends React.Component {
 
 Quiz.propTypes = {
   questions: React.PropTypes.array.isRequired,
-  submitAnswers: React.PropTypes.func.isRequired
+  submitAnswers: React.PropTypes.func.isRequired,
+  observer: React.PropTypes.bool
 };
 
 export default Quiz;
