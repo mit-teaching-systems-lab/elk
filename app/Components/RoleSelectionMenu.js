@@ -4,17 +4,17 @@ class RoleSelectionMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {selectedRole: null, studentDisabled: false, teacherDisabled: false};
-    this.handleOptionChange = this.handleOptionChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.onHandleOptionChange = this.onHandleOptionChange.bind(this);
+    this.onHandleFormSubmit = this.onHandleFormSubmit.bind(this);
   }
 
-  handleOptionChange(changeEvent) {
+  onHandleOptionChange(changeEvent) {
     this.setState({
       selectedRole: changeEvent.target.value
     });
   }
 
-  handleFormSubmit(formSubmitEvent) {
+  onHandleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault();
     this.props.socket.emit('settingrole', this.state.selectedRole, this.props.gameID);
     this.props.selectRole(this.state.selectedRole);
@@ -22,12 +22,12 @@ class RoleSelectionMenu extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit}>
+      <form onSubmit={this.onHandleFormSubmit}>
         <label>
           <input type="radio" 
             value="student" 
             checked={this.state.selectedRole === 'student' } 
-            onChange={this.handleOptionChange} 
+            onChange={this.onHandleOptionChange}
             disabled={this.props.studentDisabled}/>
           Student
         </label>
@@ -35,7 +35,7 @@ class RoleSelectionMenu extends React.Component {
           <input type="radio" 
             value="teacher" 
             checked={this.state.selectedRole === 'teacher'} 
-            onChange={this.handleOptionChange} 
+            onChange={this.onHandleOptionChange}
             disabled={this.props.teacherDisabled}/>
           Teacher
         </label>
@@ -44,7 +44,7 @@ class RoleSelectionMenu extends React.Component {
             type="radio" 
             value="observer"
             checked={this.state.selectedRole === 'observer'} 
-            onChange={this.handleOptionChange} />
+            onChange={this.onHandleOptionChange}/>
           Observer
         </label>
         <button className="btn btn-default" type="submit">Enter Game</button>
@@ -54,12 +54,12 @@ class RoleSelectionMenu extends React.Component {
 }
 
 RoleSelectionMenu.propTypes = {
-  takenRoles: React.PropTypes.array,
-  socket: React.PropTypes.object,
-  selectRole: React.PropTypes.func,
-  gameID: React.PropTypes.string,
-  studentDisabled: React.PropTypes.bool,
-  teacherDisabled: React.PropTypes.bool
+  takenRoles: React.PropTypes.array.isRequired,
+  socket: React.PropTypes.object.isRequired,
+  selectRole: React.PropTypes.func.isRequired,
+  gameID: React.PropTypes.string.isRequired,
+  studentDisabled: React.PropTypes.bool.isRequired,
+  teacherDisabled: React.PropTypes.bool.isRequired
 };
 
 export default RoleSelectionMenu;

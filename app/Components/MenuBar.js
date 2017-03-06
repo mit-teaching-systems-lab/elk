@@ -10,7 +10,7 @@ class MenuBar extends React.Component {
     return (
     <div>
       Game: 00000
-      <CountdownTimer timer_at_zero={this.props.round_over} secondsRemaining={10}/>
+      <CountdownTimer timer_at_zero={this.props.roundOver} secondsRemaining={10}/>
       Score: 5/10
     </div>
     );
@@ -18,7 +18,7 @@ class MenuBar extends React.Component {
 }
 
 MenuBar.propTypes = {
-  round_over: React.PropTypes.bool
+  roundOver: React.PropTypes.bool.isRequired
 };
 
 export default MenuBar;

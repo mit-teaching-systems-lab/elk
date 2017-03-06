@@ -19,6 +19,7 @@
     "plugin:react/recommended"
   ],
   "rules": {
+  "camelcase": ["error", { "properties": "always" }],
     "indent": ["error", 2],
     "semi": ["error", "always"],
     "comma-dangle": ["error", "only-multiline"],
