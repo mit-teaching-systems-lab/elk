@@ -60,7 +60,6 @@ class Game extends React.Component {
   }
 
   submitAnswers(answerChoices) {
-    console.log(answerChoices);
   }
 
   render() {
