@@ -5,25 +5,15 @@ let socket = io.connect('');
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.joinGame = this.joinGame.bind(this);
+    this.onJoinGame = this.onJoinGame.bind(this);
     socket.on('assigngameID', (gameID) => this._assignGameID(gameID));
     socket.on('isgameID', (flag) => this._isGameID(flag));
     this.state = {value: "", warningOn: false};
-    this.handleChange = this.handleChange.bind(this);
-    this.joinGame = this.joinGame.bind(this);
+    this.onHandleChange = this.onHandleChange.bind(this);
   }
 
-  joinGame(e) {
-    e.preventDefault();
-    socket.emit('joingame', this.state.value);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value, warningOn: false});
-  }
-
-  _assignGameID(gameID) {
-    window.location = '/#/' + gameID;
+  createGame() {
+    socket.emit("newgame");
   }
 
   _isGameID(flag) {
@@ -34,16 +24,25 @@ class App extends React.Component {
     }
   }
 
-  createGame() {
-    socket.emit("newgame");
+  _assignGameID(gameID) {
+    window.location = '/#/' + gameID;
+  }
+
+  onJoinGame(e) {
+    e.preventDefault();
+    socket.emit('onJoinGame', this.state.value);
+  }
+
+  onHandleChange(event) {
+    this.setState({value: event.target.value, warningOn: false});
   }
 
   render() {
     return (
       <div>
         <button onClick={() => this.createGame()}> Create New Game as Student </button>
-        <form onSubmit={this.joinGame} className="MyForm">
-          <input type="text" value={this.state.value} onChange={this.handleChange}/>
+        <form onSubmit={this.onJoinGame} className="MyForm">
+          <input type="text" value={this.state.value} onChange={this.onHandleChange}/>
           <input type="submit" value="Join Game"/>
         </form>
         {this.state.warning_on ? "Please enter an existing game number" : null}

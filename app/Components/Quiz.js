@@ -3,12 +3,12 @@ import React from 'react';
 class Quiz extends React.Component {
   constructor(props) {
     super(props);
-    this.handleOptionChange = this.handleOptionChange.bind(this);
+    this.onHandleOptionChange = this.onHandleOptionChange.bind(this);
     this.state = {answerChoices:{}, warningOn: false, submitted: false};
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.onHandleFormSubmit = this.onHandleFormSubmit.bind(this);
   }
 
-  handleFormSubmit(e) {
+  onHandleFormSubmit(e) {
     e.preventDefault();
     var answerChoices = this.state.answerChoices;
     if (this.props.questions.length != Object.keys(answerChoices).length) {
@@ -19,7 +19,7 @@ class Quiz extends React.Component {
     }
   }
 
-  handleOptionChange(i, e) {
+  onHandleOptionChange(i, e) {
     this.setState({warningOn: false});
     var answerChoices = this.state.answerChoices;
     answerChoices[i] = e.target.value;
@@ -31,7 +31,7 @@ class Quiz extends React.Component {
       <div>
         <h1>Challenge</h1>
         <h3>Answer the following questions as the student would have answered them</h3>
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={this.onHandleFormSubmit}>
         {
           this.props.questions.map((q, i) =>{
             return (
@@ -39,13 +39,13 @@ class Quiz extends React.Component {
                 <p>{q.question}</p>
                 <div className="radio">
                     <label>
-                      <input onChange={this.handleOptionChange.bind(this,i)} name={i} type="radio" value="true" />
+                      <input onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value="true" />
                       True
                     </label>
                   </div>
                   <div className="radio">
                     <label>
-                      <input onChange={this.handleOptionChange.bind(this,i)} name={i} type="radio" value="false" />
+                      <input onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value="false" />
                       False
                     </label>
                   </div>

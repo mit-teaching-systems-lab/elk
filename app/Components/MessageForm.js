@@ -4,11 +4,11 @@ class MessageForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {text: ''};
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeHandler = this.changeHandler.bind(this);
+    this.onHandleSubmit = this.onHandleSubmit.bind(this);
+    this.onChangeHandler = this.onChangeHandler.bind(this);
   }
 
-  handleSubmit(e) {
+  onHandleSubmit(e) {
     e.preventDefault();
     var message = {
       user : this.props.user,
@@ -18,7 +18,7 @@ class MessageForm extends React.Component {
     this.setState({ text: '' });
   }
 
-  changeHandler(e) {
+  onChangeHandler(e) {
     this.setState({ text : e.target.value });
   }
 
@@ -26,9 +26,9 @@ class MessageForm extends React.Component {
     return(
       <div className='message_form'>
         <h3>Write New Message</h3>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.onHandleSubmit}>
           <input
-            onChange={this.changeHandler}
+            onChange={this.onChangeHandler}
             value={this.state.text}
           />
         </form>
