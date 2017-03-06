@@ -60,8 +60,15 @@ class Game extends React.Component {
   }
 
   submitAnswers(answerChoices) {
+    if this.state.role == "teacher" {
+      // this.setState{answers: gameAnswer}
+    } else { // is student
+      this.setState({studentSubmitted:true}_
+    }
   }
 
+  // Idea 
+  // teaches have their answers once their answers are submitted 
   render() {
     if (!this.state.is_active_game) {
       return (
@@ -77,6 +84,7 @@ class Game extends React.Component {
           <h1>Full room</h1>
       );
     } else {
+      // student submission vs teacher submission
       return (
         <div >
           <div style={{display:'flex', flexDirection:'row'}}>
