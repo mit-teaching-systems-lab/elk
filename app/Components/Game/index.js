@@ -9,8 +9,8 @@ let socket = io.connect('');
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {at_capacity: false, role: null, round_over: false, is_active_game: false, takenRoles: null};
-    socket.on('isgameID', (flag, takenRoles) => this._is_game_ID(flag, takenRoles));
+    this.state = {atCapacity: false, role: null, roundOver: false, isActiveGame: false, takenRoles: null};
+    socket.on('isgameID', (flag, takenRoles) => this._isGameID(flag, takenRoles));
     this.setRoleOptions = this.setRoleOptions.bind(this);
     this.selectRole = this.selectRole.bind(this);
     this.submitAnswers = this.submitAnswers.bind(this);
@@ -44,15 +44,15 @@ class Game extends React.Component {
     );
   }
 
-  _is_game_ID(flag, takenRoles) {
+  _isGameID(flag, takenRoles) {
     if (flag) {
       this.setState({takenRoles: takenRoles});
     }
-    this.setState({is_active_game: flag});
+    this.setState({isActiveGame: flag});
   }
 
-  round_over() {
-    this.setState({round_over: true});
+  roundOver() {
+    this.setState({roundOver: true});
   }
 
   selectRole(role) {
@@ -63,7 +63,7 @@ class Game extends React.Component {
   }
 
   render() {
-    if (!this.state.is_active_game) {
+    if (!this.state.isActiveGame) {
       return (
         <h1> This page does not exit </h1>
       );
@@ -84,7 +84,7 @@ class Game extends React.Component {
               <ChatApp socket={socket} user={this.state.role}/>
             </div>
             <div style={{flex:1}}>
-              <Profile role={this.state.role} profile_data={this.props.route.bundle[this.state.role]} />
+              <Profile role={this.state.role} profileData={this.props.route.bundle[this.state.role]} />
             </div >
             <div style={{flex:1}}>
               <Quiz 

@@ -6,9 +6,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.joinGame = this.joinGame.bind(this);
-    socket.on('assigngameID', (gameID) => this._assign_game_ID(gameID));
-    socket.on('isgameID', (flag) => this._is_game_ID(flag));
-    this.state = {value: "", warning_on: false};
+    socket.on('assigngameID', (gameID) => this._assignGameID(gameID));
+    socket.on('isgameID', (flag) => this._isGameID(flag));
+    this.state = {value: "", warningOn: false};
     this.handleChange = this.handleChange.bind(this);
     this.joinGame = this.joinGame.bind(this);
   }
@@ -19,18 +19,18 @@ class App extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value, warning_on: false});
+    this.setState({value: event.target.value, warningOn: false});
   }
 
-  _assign_game_ID(gameID) {
+  _assignGameID(gameID) {
     window.location = '/#/' + gameID;
   }
 
-  _is_game_ID(flag) {
+  _isGameID(flag) {
     if (flag) {
       window.location = '/#/' + this.state.value;
     } else {
-      this.setState({warning_on: true});
+      this.setState({warningOn: true});
     }
   }
 
