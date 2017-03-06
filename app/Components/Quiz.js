@@ -63,7 +63,7 @@ class Quiz extends React.Component {
 }
 
 Quiz.propTypes = {
-  questions: React.PropTypes.array,
+  questions: React.PropTypes.array.isRequired,
   submitAnswers: React.PropTypes.func.isRequired
 };
 

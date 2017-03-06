@@ -38,8 +38,8 @@ class ChatApp extends React.Component {
 }
 
 ChatApp.propTypes = {
-  socket: React.PropTypes.object,
-  user: React.PropTypes.string
+  socket: React.PropTypes.object.isRequired,
+  user: React.PropTypes.string.isRequired
 };
 
 export default ChatApp;

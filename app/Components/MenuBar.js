@@ -18,7 +18,7 @@ class MenuBar extends React.Component {
 }
 
 MenuBar.propTypes = {
-  roundOver: React.PropTypes.bool
+  roundOver: React.PropTypes.bool.isRequired
 };
 
 export default MenuBar;

@@ -38,8 +38,8 @@ class MessageForm extends React.Component {
 }
 
 MessageForm.propTypes = {
-  user: React.PropTypes.string,
-  onMessageSubmit: React.PropTypes.func
+  user: React.PropTypes.string.isRequired,
+  onMessageSubmit: React.PropTypes.func.isRequired
 };
 
 export default MessageForm;

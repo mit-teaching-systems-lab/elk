@@ -40,7 +40,7 @@ class Profile extends React.Component {
 
 Profile.propTypes = {
   profileData: React.PropTypes.object,
-  role: React.PropTypes.string
+  role: React.PropTypes.string.isRequired
 };
 
 export default Profile;

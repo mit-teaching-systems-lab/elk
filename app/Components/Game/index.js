@@ -51,10 +51,6 @@ class Game extends React.Component {
     this.setState({isActiveGame: flag});
   }
 
-  roundOver() {
-    this.setState({roundOver: true});
-  }
-
   selectRole(role) {
     this.setState({role: role});
   }
@@ -99,8 +95,8 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  route: React.PropTypes.object,
-  params: React.PropTypes.object
+  route: React.PropTypes.object.isRequired,
+  params: React.PropTypes.object.isRequired
 };
 
 export default Game;

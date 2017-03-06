@@ -54,12 +54,12 @@ class RoleSelectionMenu extends React.Component {
 }
 
 RoleSelectionMenu.propTypes = {
-  takenRoles: React.PropTypes.array,
-  socket: React.PropTypes.object,
-  selectRole: React.PropTypes.func,
-  gameID: React.PropTypes.string,
-  studentDisabled: React.PropTypes.bool,
-  teacherDisabled: React.PropTypes.bool
+  takenRoles: React.PropTypes.array.isRequired,
+  socket: React.PropTypes.object.isRequired,
+  selectRole: React.PropTypes.func.isRequired,
+  gameID: React.PropTypes.string.isRequired,
+  studentDisabled: React.PropTypes.bool.isRequired,
+  teacherDisabled: React.PropTypes.bool.isRequired
 };
 
 export default RoleSelectionMenu;
