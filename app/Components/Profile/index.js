@@ -6,17 +6,17 @@ class Profile extends React.Component {
   }
 
   render() {
-    var profile_data = this.props.profile_data;
+    var profileData = this.props.profileData;
     var role = this.props.role;
     if (role == "teacher") {
       return (
         <div>
           <h1>Teacher Objective</h1>
-          <p>{profile_data.objective}</p>
+          <p>{profileData.objective}</p>
           <h1>Hints</h1>
           <ul>
           {
-            profile_data.hints.map(function(hint,i) {
+            profileData.hints.map(function(hint,i) {
               return (
                 <li style={{color: 'green'}} key={i} >{hint}</li>
               );
@@ -29,7 +29,7 @@ class Profile extends React.Component {
       return (
         <div>
           <h1>Student Profile</h1>
-          <p>{profile_data.profile}</p>
+          <p>{profileData.profile}</p>
         </div>
       );
     } else {
@@ -39,8 +39,8 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  profile_data: React.PropTypes.object,
-  role: React.PropTypes.string
+  profileData: React.PropTypes.object,
+  role: React.PropTypes.string.isRequired
 };
 
 export default Profile;

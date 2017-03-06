@@ -31,7 +31,7 @@ class MessageList extends React.Component {
 }
 
 MessageList.propTypes = {
-  messages: React.PropTypes.array
+  messages: React.PropTypes.array.isRequired
 };
 
 export default MessageList;
