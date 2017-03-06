@@ -5,11 +5,11 @@ let socket = io.connect('');
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.onJoinGame = this.onJoinGame.bind(this);
     socket.on('assigngameID', (gameID) => this._assignGameID(gameID));
     socket.on('isgameID', (flag) => this._isGameID(flag));
     this.state = {value: "", warningOn: false};
     this.onHandleChange = this.onHandleChange.bind(this);
+    this.onJoinGame = this.onJoinGame.bind(this);
   }
 
   createGame() {
@@ -30,7 +30,7 @@ class App extends React.Component {
 
   onJoinGame(e) {
     e.preventDefault();
-    socket.emit('onJoinGame', this.state.value);
+    socket.emit('joingame', this.state.value);
   }
 
   onHandleChange(event) {
@@ -45,7 +45,7 @@ class App extends React.Component {
           <input type="text" value={this.state.value} onChange={this.onHandleChange}/>
           <input type="submit" value="Join Game"/>
         </form>
-        {this.state.warning_on ? "Please enter an existing game number" : null}
+        {this.state.warningOn ? "Please enter an existing game number" : null}
       </div>
     );
   }
