@@ -32,8 +32,6 @@ app.get('*', function (request, response){
 var port = process.env.NODE_ENV == "production" ? process.env.PORT : '3333';
 server.listen(port);
 
-// usernames which are currently connected to the chat
-var usernames = {};
 var gameIDs = {};
 
 io.on('connection', function (socket) {
@@ -68,6 +66,20 @@ io.on('connection', function (socket) {
     }
   });
 
+  // accepts answers from Quiz
+  socket.on('setanswer', function(answerChoices, role, gameID) {
+    console.log("answer submitted by" + role);
+    console.log(gameIDs[gameID]);
+    var game = gameIDs[gameID];
+    game[role] = answerChoices;
+    // once both answers are submitted
+    console.log(game);
+    if ((game.student != null) && (game.teacher !=null)) {
+      console.log("both submitted!");
+      io.sockets.in(socket.room).emit('grade', game);
+    }
+  }); 
+
   // when the client emits 'sendchat', this listens and executes
   socket.on('sendchat', function (data) {
     // we tell the client to execute 'updatechat' with 2 parameters
@@ -76,8 +88,6 @@ io.on('connection', function (socket) {
 
   // when the user disconnects.. perform this
   socket.on('disconnect', function(){
-    // remove the username from global usernames list
-    delete usernames[socket.username];
     // echo globally that this client has left
     socket.broadcast.to(socket.room).emit('updatechat', {user: "SERVER", text: socket.username + ' has disconnected'});
     socket.leave(socket.room);
