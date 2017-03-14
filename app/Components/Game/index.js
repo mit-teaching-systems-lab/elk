@@ -10,7 +10,7 @@ let socket = io.connect('');
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {studentAnswers: null, teacherAnswers: null, scoreAvailable: false, atCapacity: false, role: null, roundOver: true, isActiveGame: false, takenRoles: null, answerChoices: null};
+    this.state = {studentAnswers: null, teacherAnswers: null, scoreAvailable: false, role: null, roundOver: true, isActiveGame: false, takenRoles: null, answerChoices: null};
     socket.on('isgameID', (flag, takenRoles) => this._isGameID(flag, takenRoles));
     socket.on('grade', (submissions) => this.grade(submissions));
     this.setRoleOptions = this.setRoleOptions.bind(this);
