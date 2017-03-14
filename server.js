@@ -67,8 +67,17 @@ io.on('connection', function (socket) {
   });
 
   // accepts answers from Quiz
-  socket.on('submitanswer', function(answerChoices, role, gameID) {
-    gameIDs[gameID][role] = answerChoices;
+  socket.on('setanswer', function(answerChoices, role, gameID) {
+    console.log("answer submitted by" + role);
+    console.log(gameIDs[gameID]);
+    var game = gameIDs[gameID];
+    game[role] = answerChoices;
+    // once both answers are submitted
+    console.log(game);
+    if ((game.student != null) && (game.teacher !=null)) {
+      console.log("both submitted!");
+      io.sockets.in(socket.room).emit('grade', game);
+    }
   }); 
 
   // when the client emits 'sendchat', this listens and executes

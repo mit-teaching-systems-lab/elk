@@ -3,17 +3,20 @@ import ChatApp from '../ChatApp';
 import Profile from '../Profile';
 import Quiz from '../Quiz';
 import RoleSelectionMenu from '../RoleSelectionMenu';
+import Score from '../Score';
 import io from 'socket.io-client';
 let socket = io.connect('');
  
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {scoreAvailable: false, atCapacity: false, role: null, roundOver: true, isActiveGame: false, takenRoles: null, answerChoices: null};
+    this.state = {studentAnswers: null, teacherAnswers: null, scoreAvailable: false, atCapacity: false, role: null, roundOver: true, isActiveGame: false, takenRoles: null, answerChoices: null};
     socket.on('isgameID', (flag, takenRoles) => this._isGameID(flag, takenRoles));
+    socket.on('grade', (submissions) => this.grade(submissions));
     this.setRoleOptions = this.setRoleOptions.bind(this);
     this.selectRole = this.selectRole.bind(this);
     this.submitAnswers = this.submitAnswers.bind(this);
+    this.grade = this.grade.bind(this);
   }
 
   componentDidMount() {
@@ -62,28 +65,33 @@ class Game extends React.Component {
     } 
   }
 
-// when should the student calculate their score? 
-  getAnswerKey(answerKey, scoreAvailable) {
-    if (scoreAvailable) { // everyone has submitted their scores
-      if (this.state.role == 'teacher') {
-        // calculate score by ocmparing to answerKey
-      } else {
-        // calculate score by comparing to "true" answer
-      }
-    }
+  grade(submissions) {
+    this.setState({studentAnswers: Object.values(submissions.student)});
+    this.setState({teacherAnswers: Object.values(submissions.teacher)});
+    this.setState({scoreAvailable: true});
   }
 
   render() {
+    var questionObjects = this.props.route.bundle.questions;
+    var questions = questionObjects.map(questionObj => questionObj.question);
+    var solutions = questionObjects.map(questionObj => questionObj.answer);
     var quiz = (
         <Quiz 
           submitAnswers={this.submitAnswers}
-          questions={this.props.route.bundle.questions}
+          questions={questions}
           observer={this.state.role=="observer"}/>
         );
-    var score = <p> SCORE AVAILABLE </p>;
+    var scoreTable = (
+        <Score
+          studentAnswers={this.state.studentAnswers}
+          teacherAnswers={this.state.teacherAnswers}
+          questions={questions}
+          solutions={solutions}
+        />
+      );
     var challenge = (
       <div style={{flex:1}}>
-        {this.state.scoreAvailable? score : quiz}
+        {this.state.scoreAvailable? scoreTable : quiz}
       </div>
     );
     if (!this.state.isActiveGame) {
@@ -106,10 +114,11 @@ class Game extends React.Component {
             <div style={{flex:1}}>
               <ChatApp socket={socket} user={this.state.role}/>
             </div>
-            <div style={{flex:1}}>
+            <div style={{flex:1, flexDirection:'column'}}>
               <Profile role={this.state.role} profileData={this.props.route.bundle[this.state.role]} />
+              {this.state.roundOver ? challenge : null}
             </div >
-            {this.state.roundOver ? challenge : null}
+            
           </div>
         </div>
       );

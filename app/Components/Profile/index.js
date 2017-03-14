@@ -10,10 +10,10 @@ class Profile extends React.Component {
     var role = this.props.role;
     if (role == "teacher") {
       return (
-        <div>
-          <h1>Teacher Objective</h1>
+        <div style={{flex:1}}>
+          <h2>Teacher Objective</h2>
           <p>{profileData.objective}</p>
-          <h1>Hints</h1>
+          <h2>Hints</h2>
           <ul>
           {
             profileData.hints.map(function(hint,i) {
@@ -27,8 +27,8 @@ class Profile extends React.Component {
       );
     } else if (role == "student"){
       return (
-        <div>
-          <h1>Student Profile</h1>
+        <div style={{flex:1}}>
+          <h2>Student Profile</h2>
           <p>{profileData.profile}</p>
         </div>
       );
