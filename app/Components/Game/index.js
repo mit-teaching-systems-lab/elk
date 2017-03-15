@@ -116,7 +116,6 @@ class Game extends React.Component {
     } else {
       return (
         <div >
-          <MenuBar roundOver={this.state.roundOver} />
           <div style={{display:'flex', flexDirection:'row'}}>
             <div style={{flex:1}}>
               <ChatApp socket={socket} user={this.state.role}/>

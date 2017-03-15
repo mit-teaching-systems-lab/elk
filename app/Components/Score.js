@@ -59,8 +59,8 @@ class Score extends React.Component {
 
 Score.propTypes = {
   questions: React.PropTypes.array.isRequired,
-  studentAnswers: React.PropTypes.array.isRequired,
-  teacherAnswers: React.PropTypes.array.isRequired,
+  studentAnswers: React.PropTypes.array,
+  teacherAnswers: React.PropTypes.array,
   solutions: React.PropTypes.array.isRequired
 };
 

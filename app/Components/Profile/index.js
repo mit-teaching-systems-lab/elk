@@ -18,7 +18,7 @@ class Profile extends React.Component {
           {
             profileData.hints.map(function(hint,i) {
               return (
-                <li style={{color: 'green'}} key={i} >{hint}</li>
+                <li key={i} >{hint}</li>
               );
             })
           }

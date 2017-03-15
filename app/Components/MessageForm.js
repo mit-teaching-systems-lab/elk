@@ -16,6 +16,7 @@ class MessageForm extends React.Component {
     };
     this.props.onMessageSubmit(message);  
     this.setState({ text: '' });
+    this.refs.text.focus();
   }
 
   onChangeHandler(e) {
@@ -27,10 +28,11 @@ class MessageForm extends React.Component {
       <div className='message_form'>
         <h3>Write New Message</h3>
         <form onSubmit={this.onHandleSubmit}>
-          <input
+          <textarea ref="text"style={{width:400, height:50}}
             onChange={this.onChangeHandler}
             value={this.state.text}
           />
+        <input type="submit"/>
         </form>
       </div>
     );
