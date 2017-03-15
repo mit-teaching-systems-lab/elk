@@ -123,7 +123,9 @@ class Game extends React.Component {
             </div>
             <div style={{flex:1, flexDirection:'column'}}>
               <Profile role={this.state.role} profileData={this.props.route.bundle[this.state.role]} />
-              <button onClick={() => this.toggleRoundOver()}> View Challenge when round is over </button>
+              <button onClick={() => this.toggleRoundOver()}> 
+                {this.state.roundOver? "Close challenge while round is ongoing":  "View Challenge when round is over"}
+              </button>
               {this.state.roundOver ? challenge : null}
             </div >
             
