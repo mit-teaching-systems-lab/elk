@@ -32,7 +32,7 @@ class MessageForm extends React.Component {
             onChange={this.onChangeHandler}
             value={this.state.text}
           />
-        <input type="submit"/>
+        <input style={{height:50}} type="submit" disabled={this.state.text.length <= 0}/>
         </form>
       </div>
     );

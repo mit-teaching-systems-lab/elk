@@ -4,7 +4,6 @@ import Profile from '../Profile';
 import Quiz from '../Quiz';
 import RoleSelectionMenu from '../RoleSelectionMenu';
 import Score from '../Score';
-import MenuBar from '../MenuBar';
 import io from 'socket.io-client';
 let socket = io.connect('');
  

@@ -68,14 +68,10 @@ io.on('connection', function (socket) {
 
   // accepts answers from Quiz
   socket.on('setanswer', function(answerChoices, role, gameID) {
-    console.log("answer submitted by" + role);
-    console.log(gameIDs[gameID]);
     var game = gameIDs[gameID];
     game[role] = answerChoices;
     // once both answers are submitted
-    console.log(game);
     if ((game.student != null) && (game.teacher !=null)) {
-      console.log("both submitted!");
       io.sockets.in(socket.room).emit('grade', game);
     }
   }); 
