@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router, Route, hashHistory} from 'react-router';
-import Counter from './Components/Counter';
 import Game from './Components/Game/index.js';
 import rational2 from '../GameBundles/rational2.json';
 import App from './Components/App';
@@ -21,6 +20,5 @@ export default (
   <Router history={hashHistory}>
     <Route path='/' component={App}/>
     <Route path='/:gameID' bundle={gameBundle} component={Game}/>
-    <Route path='/counter' component={Counter}/>
   </Router>
 );

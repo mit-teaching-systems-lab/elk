@@ -40,7 +40,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.createGame()}> Create New Game as Student </button>
+        <button onClick={() => this.createGame()}> Create New Game</button>
         <form onSubmit={this.onJoinGame} className="MyForm">
           <input type="text" value={this.state.value} onChange={this.onHandleChange}/>
           <input type="submit" value="Join Game"/>
