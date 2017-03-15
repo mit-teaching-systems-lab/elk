@@ -1,17 +1,17 @@
 import React from 'react';
 import { Router, Route, hashHistory} from 'react-router';
 import Game from './Components/Game/index.js';
-import rational2 from '../GameBundles/rational2.json';
+import evolution2 from '../GameBundles/evolution2.json';
 import App from './Components/App';
 
 var gameBundle = {};
-gameBundle["teacher"] = rational2.teacher;
-gameBundle["student"] = rational2.students[0];
+gameBundle["teacher"] = evolution2.teacher;
+gameBundle["student"] = evolution2.students[0];
 var questions = [];
-for (var i = 0; i < rational2.questions.length; i++) {
+for (var i = 0; i < evolution2.questions.length; i++) {
   var q = {};
-  q["answer"] = rational2.questions[i].answer["0"];
-  q["question"] = rational2.questions[i].question;
+  q["answer"] = evolution2.questions[i].answer["0"];
+  q["question"] = evolution2.questions[i].question;
   questions.push(q);
 }
 gameBundle["questions"] = questions;
