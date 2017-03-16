@@ -11,6 +11,8 @@ class Profile extends React.Component {
     if (role == "teacher") {
       return (
         <div style={{flex:1}}>
+          <h2>Background</h2>
+          <p>{profileData.background}</p>
           <h2>Teacher Objective</h2>
           <p>{profileData.objective}</p>
           <h2>Hints</h2>
@@ -28,8 +30,10 @@ class Profile extends React.Component {
     } else if (role == "student"){
       return (
         <div style={{flex:1}}>
+          <h2>Background</h2>
+          <p>{profileData.background}</p>
           <h2>Student Profile</h2>
-          <p>{profileData.profile}</p>
+          <p style={{whiteSpace:'pre-wrap'}}>{profileData.profiles[this.props.studentID].profile}</p>
         </div>
       );
     } else {
@@ -40,7 +44,8 @@ class Profile extends React.Component {
 
 Profile.propTypes = {
   profileData: React.PropTypes.object,
-  role: React.PropTypes.string.isRequired
+  role: React.PropTypes.string.isRequired,
+  studentID: React.PropTypes.number.isRequired
 };
 
 export default Profile;

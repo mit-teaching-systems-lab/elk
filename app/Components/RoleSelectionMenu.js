@@ -44,7 +44,7 @@ class RoleSelectionMenu extends React.Component {
             Teacher
           </label>
           <label style={{padding:paddingSize}}>
-            <input style={{marginRight: 7}} stype={{padding:3}}
+            <input style={{marginRight: 7}}
               type="radio"
               value="observer"
               checked={this.state.selectedRole === 'observer'}
