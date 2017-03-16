@@ -6,11 +6,13 @@ class Message extends React.Component {
   }
  
   render() {
+    var username = this.props.user;
+    username = username.charAt(0).toUpperCase() + username.slice(1);
     return (
-		<div className="message">
-			<strong style={{color:'blue'}}>{this.props.user}: </strong>
-			<span style={{whiteSpace:'pre-wrap'}}> {this.props.text}</span>
-		</div>
+      <div className="message">
+        <strong style={{color:'blue'}}>{username}: </strong>
+        <span style={{whiteSpace:'pre-wrap'}}> {this.props.text}</span>
+      </div>
     );
   }
 }
