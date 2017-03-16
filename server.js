@@ -56,14 +56,23 @@ io.on('connection', function (socket) {
 
   // sets role from RoleSelectionMenu
   socket.on('settingrole', function(selectedRole, gameID) {
+    var takenRoles = Object.keys(gameIDs[gameID]);
+    var message = "";
+    socket.username = "observer";
     if (selectedRole!="observer") {
       gameIDs[gameID][selectedRole] = null;
       socket.room = gameID;
       socket.username = selectedRole;
       socket.join(socket.room);
-      socket.emit('updatechat', { user: 'SERVER', text: 'you have connected to game ' + socket.room });
-      socket.broadcast.to(socket.room).emit('updatechat', { user: 'SERVER', text: socket.username + ' has connected to this room' });
+      socket.emit('updatechat', { user: 'SERVER', text: 'You have connected to game ' + socket.room });
+      socket.broadcast.to(socket.room).emit('updatechat', { user: 'SERVER', text: socket.username.charAt(0).toUpperCase() + socket.username.slice(1) + ' has connected to this game' });
     }
+    if (takenRoles.length == 0) {
+      message = "You are the only player in this game";
+    } else {
+      message = takenRoles[0].charAt(0).toUpperCase() + takenRoles[0].slice(1) + " has connected to this game";
+    }
+    socket.emit('updatechat', {user: 'SERVER', text: message});
   });
 
   // accepts answers from Quiz
@@ -85,7 +94,9 @@ io.on('connection', function (socket) {
   // when the user disconnects.. perform this
   socket.on('disconnect', function(){
     // echo globally that this client has left
-    socket.broadcast.to(socket.room).emit('updatechat', {user: "SERVER", text: socket.username + ' has disconnected'});
-    socket.leave(socket.room);
+    if (socket.username) {
+      socket.broadcast.to(socket.room).emit('updatechat', {user: "SERVER", text: socket.username.charAt(0).toUpperCase() + socket.username.slice(1) + ' has disconnected'});
+      socket.leave(socket.room);
+    }
   });
 });
