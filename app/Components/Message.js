@@ -8,8 +8,8 @@ class Message extends React.Component {
   render() {
     return (
 		<div className="message">
-			<strong>{this.props.user}: </strong> 
-			<span> {this.props.text}</span>		
+			<strong style={{color:'blue'}}>{this.props.user}: </strong>
+			<span style={{whiteSpace:'pre-wrap'}}> {this.props.text}</span>
 		</div>
     );
   }

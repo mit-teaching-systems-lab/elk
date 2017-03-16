@@ -10,13 +10,14 @@ let socket = io.connect('');
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {studentAnswers: null, teacherAnswers: null, scoreAvailable: false, role: null, roundOver: true, isActiveGame: false, takenRoles: null};
+    this.state = {studentAnswers: null, teacherAnswers: null, scoreAvailable: false, role: null, roundOver: false, isActiveGame: false, takenRoles: null};
     socket.on('isgameID', (flag, takenRoles) => this._isGameID(flag, takenRoles));
     socket.on('grade', (submissions) => this.grade(submissions));
     this.setRoleOptions = this.setRoleOptions.bind(this);
     this.selectRole = this.selectRole.bind(this);
     this.submitAnswers = this.submitAnswers.bind(this);
     this.grade = this.grade.bind(this);
+    this.toggleRoundOver = this.toggleRoundOver.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +71,11 @@ class Game extends React.Component {
     this.setState({scoreAvailable: true});
   }
 
+  toggleRoundOver() {
+    var roundOver = !this.state.roundOver;
+    this.setState({roundOver: roundOver});
+  }
+
   render() {
     var questionObjects = this.props.route.bundle.questions;
     var questions = questionObjects.map(questionObj => questionObj.question);
@@ -115,6 +121,9 @@ class Game extends React.Component {
             </div>
             <div style={{flex:1, flexDirection:'column'}}>
               <Profile role={this.state.role} profileData={this.props.route.bundle[this.state.role]} />
+              <button onClick={() => this.toggleRoundOver()}> 
+                {this.state.roundOver? "Close challenge while round is ongoing":  "View Challenge when round is over"}
+              </button>
               {this.state.roundOver ? challenge : null}
             </div >
             

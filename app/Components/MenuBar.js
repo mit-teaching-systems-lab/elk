@@ -8,11 +8,7 @@ class MenuBar extends React.Component {
  
   render() {
     return (
-    <div>
-      Game: 00000
-      <CountdownTimer timer_at_zero={this.props.roundOver} secondsRemaining={10}/>
-      Score: 5/10
-    </div>
+      <CountdownTimer secondsRemaining={10}/>
     );
   }
 }
