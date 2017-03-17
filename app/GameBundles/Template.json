@@ -1,43 +1,51 @@
-{
+{ // remove all comments once template has been filled in! 
 	"id": "evolution", // 1-2 word summary e.g. functions, evolution, natural_selection, 
 	"name": "Evolution and Natural Selection", // this will be the name that the users see when selecting games 
 	"subject": "SUBJECT HERE", // "math", "chemistry", "physics", "biology", "sciences"
 	"grade": 0, // insert grade number here 
 	"level": "LEVEL HERE", // "elementary", "middle" or "high"
 	"teacher": {
+		"background": "BACKGROUND INFORMATION HERE", // null (no quotes) if empty
 		"objective": "TEACHER OBJECTIVE HERE",
 		"hints": [ // null if no hints 
 			"HINT 1",
 			"HINT 2",
 			"PUT AS MANY HINTS AS YOU WANT"
+		],
+		"images": [
 		]
 	},
-	"students": [
-		{
-			"id": 0,
-			"profile": "STUDENT PROFILE 1 HERE"
-		},
-		{
-			"id": 1,
-			"profile": "STUDENT PROFILE 2 HERE"
-		}
-	],
+	"student": {
+		"background": "background information here", // null if empty
+		"profiles": [
+			{
+				"id": 0,
+				"profile": "STUDENT PROFILE 1 HERE"
+			},
+			{
+				"id": 1,
+				"profile": "STUDENT PROFILE 2 HERE"
+			}
+		]
+	},
 	"questions": [
 		{
 			"question": "QUESTION HERE",
+			"image": "",
 			"answer": {
 				"0": "STUDENT 0 ANSWER", 
 				"1": "STUDENT 1 ANSWER" // if tf question, use true and false (no quotes),
 			},
-			"type": "tf", // tf: True/False question; mcq: multiple choice question
+			"type": "tf" // tf: True/False question; mcq: multiple choice question
 		},
 		{
 			"question": "QUESTION HERE",
+			"image": "",
 			"answer": {
 				"0": "STUDENT 0 ANSWER",
 				"1": "STUDENT 1 ANSWER"
 			},
-			"type": "tf", // tf: True/False question; mcq: multiple choice question
+			"type": "tf" // tf: True/False question; mcq: multiple choice question
 		}
 	]
 }

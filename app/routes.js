@@ -1,17 +1,17 @@
 import React from 'react';
 import { Router, Route, hashHistory} from 'react-router';
 import Game from './Components/Game/index.js';
-import chromosomes from '../GameBundles/chromosomes.json';
+import rational from './GameBundles/rational.json';
 import App from './Components/App';
 
 // var gameBundle = {};
-// gameBundle["teacher"] = chromosomes.teacher;
-// gameBundle["student"] = chromosomes.students;
+// gameBundle["teacher"] = rational.teacher;
+// gameBundle["student"] = rational.students;
 // var questions = [];
-// for (var i = 0; i < chromosomes.questions.length; i++) {
+// for (var i = 0; i < rational.questions.length; i++) {
 //   var q = {};
-//   q["answer"] = chromosomes.questions[i].answer["0"];
-//   q["question"] = chromosomes.questions[i].question;
+//   q["answer"] = rational.questions[i].answer["0"];
+//   q["question"] = rational.questions[i].question;
 //   questions.push(q);
 // }
 // gameBundle["questions"] = questions;
@@ -19,6 +19,6 @@ import App from './Components/App';
 export default (
   <Router history={hashHistory}>
     <Route path='/' component={App}/>
-    <Route path='/:gameID' bundle={chromosomes} component={Game}/>
+    <Route path='/:gameID' bundle={rational} component={Game}/>
   </Router>
 );

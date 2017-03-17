@@ -24,7 +24,19 @@ class Profile extends React.Component {
               );
             })
           }
+          {
+            profileData.images.map(function(image,i) {
+              var path = "/GameBundles/Images/" + image + ".png";
+              return(
+                <div key={i}>
+                  <p><b>Image {i+1}</b></p>
+                  <img style={{maxHeight:100}} src={path} />
+                </div>
+              );
+            })
+          }
           </ul>
+
         </div>
       );
     } else if (role == "student"){
