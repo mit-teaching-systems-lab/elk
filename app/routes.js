@@ -1,24 +1,24 @@
 import React from 'react';
 import { Router, Route, hashHistory} from 'react-router';
 import Game from './Components/Game/index.js';
-import evolution2 from '../GameBundles/evolution2.json';
+import rational from './GameBundles/rational.json';
 import App from './Components/App';
 
-var gameBundle = {};
-gameBundle["teacher"] = evolution2.teacher;
-gameBundle["student"] = evolution2.students[0];
-var questions = [];
-for (var i = 0; i < evolution2.questions.length; i++) {
-  var q = {};
-  q["answer"] = evolution2.questions[i].answer["0"];
-  q["question"] = evolution2.questions[i].question;
-  questions.push(q);
-}
-gameBundle["questions"] = questions;
+// var gameBundle = {};
+// gameBundle["teacher"] = rational.teacher;
+// gameBundle["student"] = rational.students;
+// var questions = [];
+// for (var i = 0; i < rational.questions.length; i++) {
+//   var q = {};
+//   q["answer"] = rational.questions[i].answer["0"];
+//   q["question"] = rational.questions[i].question;
+//   questions.push(q);
+// }
+// gameBundle["questions"] = questions;
 
 export default (
   <Router history={hashHistory}>
     <Route path='/' component={App}/>
-    <Route path='/:gameID' bundle={gameBundle} component={Game}/>
+    <Route path='/:gameID' bundle={rational} component={Game}/>
   </Router>
 );

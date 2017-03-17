@@ -21,34 +21,40 @@ class RoleSelectionMenu extends React.Component {
   }
 
   render() {
+    var paddingSize = 7;
     return (
-      <form onSubmit={this.onHandleFormSubmit}>
-        <label>
-          <input type="radio" 
-            value="student" 
-            checked={this.state.selectedRole === 'student' } 
-            onChange={this.onHandleOptionChange}
-            disabled={this.props.studentDisabled}/>
-          Student
-        </label>
-        <label>
-          <input type="radio" 
-            value="teacher" 
-            checked={this.state.selectedRole === 'teacher'} 
-            onChange={this.onHandleOptionChange}
-            disabled={this.props.teacherDisabled}/>
-          Teacher
-        </label>
-        <label>
-          <input 
-            type="radio" 
-            value="observer"
-            checked={this.state.selectedRole === 'observer'} 
-            onChange={this.onHandleOptionChange}/>
-          Observer
-        </label>
-        <button className="btn btn-default" type="submit">Enter Game</button>
-      </form>
+      <div>
+        <h1> Select your game role </h1>
+        <p><i>Observers do not participate in the game</i></p>
+        <form onSubmit={this.onHandleFormSubmit}>
+          <label style={{padding:paddingSize}}>
+            <input style={{marginRight: 7}} type="radio"
+              value="student"
+              checked={this.state.selectedRole === 'student'}
+              onChange={this.onHandleOptionChange}
+              disabled={this.props.studentDisabled}/>
+            Student
+          </label>
+          <label style={{padding:paddingSize}}>
+            <input style={{marginRight: 7}} type="radio"
+              value="teacher"
+              checked={this.state.selectedRole === 'teacher'}
+              onChange={this.onHandleOptionChange}
+              disabled={this.props.teacherDisabled}/>
+            Teacher
+          </label>
+          <label style={{padding:paddingSize}}>
+            <input style={{marginRight: 7}}
+              type="radio"
+              value="observer"
+              checked={this.state.selectedRole === 'observer'}
+              onChange={this.onHandleOptionChange}/>
+            Observer
+          </label>
+          <p/>
+          <button className="btn btn-default" type="submit">Enter Game</button>
+        </form>
+      </div>
     );
   }
 }

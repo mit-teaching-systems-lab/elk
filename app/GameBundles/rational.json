@@ -1,0 +1,67 @@
+{
+	"id": "rational",
+	"name": "Rational and Irrational",
+	"subject": "SUBJECT HERE",
+	"grade": 8,
+	"level": "middle",
+	"teacher": {
+		"background": "You are teaching an eighth grade math class. You are about to give a lesson on how to graph various classes of numbers on a number line, and you would like to check where your students are before giving the lesson. They did have a class on rational and irrational numbers before, but nothing has been assigned with regards to approximations and placing numbers on number lines.",
+		"objective": "Students understand that irrational numbers can be approximated to rational numbers. Students can roughly estimate where to place irrational numbers on a number line diagram.",
+		"hints": [
+			"You want to see if they have a good understanding of what rational and irrational numbers are",
+			"You want to see if they know to to approximate irrational numbers to 2 decimal places for this class and make it clear that the more decimal places, the more precise an approximation.",
+			"You want to see if they know that irrational numbers should be graphed on the number line about where their approximation would be graphed, but the label should still be the irrational number.",
+			"Example approximation: The approximation of pi that the students should know is 3.14. The approximation of sqrt(2) is 1.41",
+			"Image 1: Example of a correctly labeled number line for sqrt(2)",
+			"Graphs to use with the students (feel free to copy them into the doc)",
+			"-5.....-4.....-3.....-2.....-1.....0.....1.....2.....3.....4.....5"
+		],
+		"images": [
+			"rational-1"
+		]
+	},
+	"student": {
+		"background": "You are taking an eighth grade math class. You are about to learn a lesson on how to graph various classes of numbers on a number line, and your teacher would like to check where you are before the lesson. You have had a class on rational and irrational numbers before, but nothing has been assigned with any new material.",
+		"profiles": [
+			{
+				"id": 0,
+				"profile": "I know that rational numbers are real numbers (numbers that do not involve sqrt(-1)) that can be expressed as a fraction or ratio of two integers, as long as the denominator is non-zero.  I know that irrational numbers are real numbers that cannot be expressed as a ratio of two integers.\n\nI know that irrational numbers can be approximated to rational numbers, but I’m not sure exactly when to stop. I mean, they’re endless and never repeat. I usually just write out all the ones I see on a calculator screen. So, I guess something like 10 digits is good enough.\n\nI know from learning rational numbers last year that 530 is a better approximation of 532 than 500 is. It’s more precise. I guess the more digits you have, the more precise it would be, and approximations of irrational numbers probably work about the same way.\n\nI learned how to graph all rational numbers last year, and I can do that well. I think it’s impossible to graph an irrational number on a number line because it’s never ending. Sure, ⅓ can be graphed even though it’s never ending, but it repeats at some point and is a rational number. Irrational numbers like pi or sqrt(2) are weird, and I don’t think you can graph them.\n\nThe image below shows how I graph ⅓ on a number line.",
+				"images": ["rational-2"]
+			},
+			{
+				"id": 1,
+				"profile": "I know that rational numbers are real numbers that can be expressed as a fraction or ratio of two integers, as long as the denominator is non-zero.  I know that irrational numbers are real numbers that cannot be expressed as a ratio of two integers.\n\nI know that irrational numbers can be approximated to rational numbers, and my teacher has taught me that we should approximate to 2 decimal places. The approximation of sqrt(13) is 3.61 and the approximation of pi is 3.14.\n\nI know we can approximate to more than 2 decimal places to be more precise, but 2 decimal places is good enough.\n\nThe image below shows how I graph sqrt(2) on a number line (it’s hard to show exactly sqrt(2), so I’m labeling it as 1.41, which is the correct approximation to 2 decimal places. This way, I know exactly what the approximation of sqrt(2) is):\n\nIf a teacher asks me to show how I would graph a certain irrational number on a number line, I would say to place a small dot where I would find the 2 decimal approximation and label it with the 2 decimal approximation of the irrational number. (It’s hard to draw on google docs)",
+				"images": ["rational-3"]
+			}
+		]
+	},
+	"questions": [
+		{
+			"question": "Graphing pi is possible and the following would be correct:",
+			"image": "rational-4",
+			"answer": {
+				"0": false, 
+				"1": false
+			},
+			"type": "tf"
+		},
+		{
+			"question": "1.414 is a more precise approximation of sqrt(2) than 1.41",
+			"image": "",
+			"answer": {
+				"0": true,
+				"1": true
+			},
+			"type": "tf"
+		},
+		{
+			"question": "4.12 is a good enough approximation for sqrt(17)",
+			"image": "",
+			"answer": {
+				"0": false,
+				"1": true
+			},
+			"type": "tf"
+		}
+	]
+}

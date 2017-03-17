@@ -13,7 +13,6 @@ class MessageList extends React.Component {
         WebkitOverflowScrolling: "touch", 
         overflowy: "scroll", 
         maxHeight: 400}}>
-        <h2> Conversation: </h2>
         {
           this.props.messages.map((message, i) => {
             return (

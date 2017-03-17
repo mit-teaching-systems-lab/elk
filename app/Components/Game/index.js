@@ -10,7 +10,7 @@ let socket = io.connect('');
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {studentAnswers: null, teacherAnswers: null, scoreAvailable: false, role: null, roundOver: false, isActiveGame: false, takenRoles: null};
+    this.state = {roundBegan: false, studentAnswers: null, teacherAnswers: null, scoreAvailable: false, role: null, roundOver: false, isActiveGame: false, takenRoles: null};
     socket.on('isgameID', (flag, takenRoles) => this._isGameID(flag, takenRoles));
     socket.on('grade', (submissions) => this.grade(submissions));
     this.setRoleOptions = this.setRoleOptions.bind(this);
@@ -77,9 +77,10 @@ class Game extends React.Component {
   }
 
   render() {
+    var studentID = 0;
     var questionObjects = this.props.route.bundle.questions;
     var questions = questionObjects.map(questionObj => questionObj.question);
-    var solutions = questionObjects.map(questionObj => questionObj.answer);
+    var solutions = questionObjects.map(questionObj => questionObj.answer[studentID]);
     var quiz = (
         <Quiz 
           submitAnswers={this.submitAnswers}
@@ -117,10 +118,10 @@ class Game extends React.Component {
         <div >
           <div style={{display:'flex', flexDirection:'row'}}>
             <div style={{flex:1}}>
-              <ChatApp socket={socket} user={this.state.role}/>
+              <ChatApp isObserver={this.state.role=="observer"} socket={socket} user={this.state.role}/>
             </div>
             <div style={{flex:1, flexDirection:'column'}}>
-              <Profile role={this.state.role} profileData={this.props.route.bundle[this.state.role]} />
+              <Profile role={this.state.role} studentID={studentID} profileData={this.props.route.bundle[this.state.role]} />
               <button onClick={() => this.toggleRoundOver()}> 
                 {this.state.roundOver? "Close challenge while round is ongoing":  "View Challenge when round is over"}
               </button>
