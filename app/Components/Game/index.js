@@ -57,7 +57,6 @@ class Game extends React.Component {
 
   selectRole(role) {
     this.setState({role: role});
-    console.log(role);
   }
 
   submitAnswers(answerChoices) {
