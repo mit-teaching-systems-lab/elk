@@ -21,6 +21,12 @@ class ChatApp extends React.Component {
   }
 
   render() {
+    var messageForm = <div style={{flex:1}}>
+      <MessageForm
+        onMessageSubmit={this.handleMessageSubmit}
+        user={this.props.user}
+      />
+    </div>;
     return (
       <div>
         <div style={{display:'flex', flexDirection:'column', height:"100%"}}>
@@ -30,12 +36,8 @@ class ChatApp extends React.Component {
               messages={this.state.messages}
             />
           </div>
-          <div style={{flex:1}}>
-            <MessageForm
-              onMessageSubmit={this.handleMessageSubmit}
-              user={this.props.user}
-            />
-          </div>
+          {this.props.isObserver? null : messageForm}
+          
         </div>
       </div>
     );
@@ -44,7 +46,8 @@ class ChatApp extends React.Component {
 
 ChatApp.propTypes = {
   socket: React.PropTypes.object.isRequired,
-  user: React.PropTypes.string.isRequired
+  user: React.PropTypes.string.isRequired,
+  isObserver: React.PropTypes.bool.isRequired
 };
 
 export default ChatApp;

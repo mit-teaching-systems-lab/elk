@@ -57,6 +57,7 @@ class Game extends React.Component {
 
   selectRole(role) {
     this.setState({role: role});
+    console.log(role);
   }
 
   submitAnswers(answerChoices) {
@@ -118,7 +119,7 @@ class Game extends React.Component {
         <div >
           <div style={{display:'flex', flexDirection:'row'}}>
             <div style={{flex:1}}>
-              <ChatApp socket={socket} user={this.state.role}/>
+              <ChatApp isObserver={this.state.role=="observer"} socket={socket} user={this.state.role}/>
             </div>
             <div style={{flex:1, flexDirection:'column'}}>
               <Profile role={this.state.role} studentID={studentID} profileData={this.props.route.bundle[this.state.role]} />

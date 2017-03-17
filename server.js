@@ -28,7 +28,6 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
 
-
 var port = process.env.NODE_ENV == "production" ? process.env.PORT : '3333';
 server.listen(port);
 
@@ -61,12 +60,12 @@ io.on('connection', function (socket) {
     socket.username = "observer";
     if (selectedRole!="observer") {
       gameIDs[gameID][selectedRole] = null;
-      socket.room = gameID;
-      socket.username = selectedRole;
-      socket.join(socket.room);
-      socket.emit('updatechat', { user: 'SERVER', text: 'You have connected to game ' + socket.room });
-      socket.broadcast.to(socket.room).emit('updatechat', { user: 'SERVER', text: socket.username.charAt(0).toUpperCase() + socket.username.slice(1) + ' has connected to this game' });
     }
+    socket.room = gameID;
+    socket.username = selectedRole;
+    socket.join(socket.room);
+    socket.emit('updatechat', { user: 'SERVER', text: 'You have connected to game ' + socket.room });
+    socket.broadcast.to(socket.room).emit('updatechat', { user: 'SERVER', text: socket.username.charAt(0).toUpperCase() + socket.username.slice(1) + ' has connected to this game' });
     if (takenRoles.length == 0) {
       message = "You are the only player in this game";
     } else {

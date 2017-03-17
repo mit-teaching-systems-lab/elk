@@ -23,7 +23,8 @@ class Profile extends React.Component {
                 <li key={i} >{hint}</li>
               );
             })
-          }
+          }          
+          </ul>
           {
             profileData.images.map(function(image,i) {
               var path = "/GameBundles/Images/" + image + ".png";
@@ -35,8 +36,6 @@ class Profile extends React.Component {
               );
             })
           }
-          </ul>
-
         </div>
       );
     } else if (role == "student"){
