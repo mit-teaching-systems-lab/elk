@@ -97,7 +97,7 @@ class Game extends React.Component {
       );
     var challenge = (
 
-      <div style={{flex:1, overflowY:"scroll", borderTopStyle:"solid", borderTopWidth:2, paddingLeft: 10}}>
+      <div style={{flex:1, overflowY:"scroll", borderTopColor: "gray", borderTopStyle:"solid", borderTopWidth:2, paddingLeft: 10}}>
         {this.state.scoreAvailable? scoreTable : quiz}
       </div>
     );
@@ -122,10 +122,10 @@ class Game extends React.Component {
               <ChatApp isObserver={this.state.role=="observer"} socket={socket} user={this.state.role}/>
             </div>
             <div style={{flex:1}}>
-              <div style={{display:'flex', flexDirection:'column', height:"100%", borderLeftWidth: 2, borderLeftStyle:"solid"}}>
-                <div style={{flex:1,overflowY:"scroll", paddingLeft: 10}}>
+              <div style={{display:'flex', flexDirection:'column', height:"100%", borderLeftColor: "gray", borderLeftWidth: 2, borderLeftStyle:"solid"}}>
+                <div style={{flex:1, overflowY:"scroll", paddingLeft: 10}}>
                   <Profile role={this.state.role} studentID={studentID} profileData={this.props.route.bundle[this.state.role]} />
-                  <button onClick={() => this.toggleRoundOver()}> 
+                  <button onClick={() => this.toggleRoundOver()}>
                     {this.state.roundOver? "Close challenge while round is ongoing":  "View Challenge when round is over"}
                   </button>
                 </div>

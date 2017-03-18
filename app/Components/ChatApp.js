@@ -21,7 +21,7 @@ class ChatApp extends React.Component {
   }
 
   render() {
-    var messageForm = <div style={{flex:1, borderTopStyle:"solid", borderTopWidth:1}}>
+    var messageForm = <div style={{flex:1, borderTopStyle:"solid", borderTopWidth:1, borderTopColor:"lightGray"}}>
       <MessageForm
         onMessageSubmit={this.handleMessageSubmit}
         user={this.props.user}
@@ -31,7 +31,7 @@ class ChatApp extends React.Component {
       <div>
         <div style={{display:'flex', flexDirection:'column', height:"100%"}}>
         <h2> Conversation </h2>
-          <div style={{borderTopStyle:"solid", borderTopWidth:1, overflowY:"scroll", flex:3}}>
+          <div style={{borderTopStyle:"solid", borderTopWidth:1, borderTopColor:"lightGray", overflowY:"scroll", flex:3}}>
             <MessageList
               messages={this.state.messages}
             />
