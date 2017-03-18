@@ -25,10 +25,10 @@ class MessageForm extends React.Component {
 
   render() {
     return(
-      <div className='message_form'>
+      <div className='message_form' style={{paddingRight:10}}>
         <h3>Write New Message</h3>
         <form onSubmit={this.onHandleSubmit}>
-          <textarea ref="text"style={{width:400, height:50}}
+          <textarea ref="text" style={{width:"100%", height:50}}
             onChange={this.onChangeHandler}
             value={this.state.text}
           />

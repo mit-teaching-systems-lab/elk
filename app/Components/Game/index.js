@@ -96,7 +96,8 @@ class Game extends React.Component {
         />
       );
     var challenge = (
-      <div style={{flex:1}}>
+
+      <div style={{flex:1, overflowY:"scroll", borderTopColor: "gray", borderTopStyle:"solid", borderTopWidth:2, paddingLeft: 10}}>
         {this.state.scoreAvailable? scoreTable : quiz}
       </div>
     );
@@ -115,17 +116,21 @@ class Game extends React.Component {
       );
     } else {
       return (
-        <div >
+        <div>
           <div style={{display:'flex', flexDirection:'row'}}>
             <div style={{flex:1}}>
               <ChatApp isObserver={this.state.role=="observer"} socket={socket} user={this.state.role}/>
             </div>
-            <div style={{flex:1, flexDirection:'column'}}>
-              <Profile role={this.state.role} studentID={studentID} profileData={this.props.route.bundle[this.state.role]} />
-              <button onClick={() => this.toggleRoundOver()}> 
-                {this.state.roundOver? "Close challenge while round is ongoing":  "View Challenge when round is over"}
-              </button>
-              {this.state.roundOver ? challenge : null}
+            <div style={{flex:1}}>
+              <div style={{display:'flex', flexDirection:'column', height:"100%", borderLeftColor: "gray", borderLeftWidth: 2, borderLeftStyle:"solid"}}>
+                <div style={{flex:1, overflowY:"scroll", paddingLeft: 10}}>
+                  <Profile role={this.state.role} studentID={studentID} profileData={this.props.route.bundle[this.state.role]} />
+                  <button onClick={() => this.toggleRoundOver()}>
+                    {this.state.roundOver? "Close challenge while round is ongoing":  "View Challenge when round is over"}
+                  </button>
+                </div>
+                  {this.state.roundOver ? challenge : null}
+              </div>
             </div >
             
           </div>

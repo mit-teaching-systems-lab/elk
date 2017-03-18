@@ -11,8 +11,8 @@ class MessageList extends React.Component {
       <div className='messages' style={{
         overflowScrolling: "touch", 
         WebkitOverflowScrolling: "touch", 
-        overflowy: "scroll", 
-        maxHeight: 400}}>
+        overflowy: "scroll",
+        paddingTop: 10}}>
         {
           this.props.messages.map((message, i) => {
             return (
