@@ -38,30 +38,32 @@ class Quiz extends React.Component {
     return (
       <div>
         <h2>Challenge</h2>
-        <h3>Answer the following questions as the student would have answered them</h3>
+        <p><b>Answer the following questions as the student would have answered them</b></p>
         <form onSubmit={this.onHandleFormSubmit}>
-        {
-          this.props.questions.map((q, i) =>{
-            return (
-              <div key={i}>
-                <p>{q}</p>
-                <div className="radio">
-                    <label>
-                      <input disabled={disabledInput} onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value={true} />
-                      True
-                    </label>
-                  </div>
+          {
+            this.props.questions.map((q, i) =>{
+              return (
+                <div key={i}>
+                  <p>{q}</p>
                   <div className="radio">
-                    <label>
-                      <input disabled={disabledInput} onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value={false} />
-                      False
-                    </label>
-                  </div>
-              </div>
-            );
-          })
-        }
-        <button disabled={disabledInput} className="btn btn-default" type="submit">Save</button>
+                      <label>
+                        <input disabled={disabledInput} onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value={true} />
+                        True
+                      </label>
+                    </div>
+                    <div className="radio">
+                      <label>
+                        <input disabled={disabledInput} onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value={false} />
+                        False
+                      </label>
+                    </div>
+                </div>
+              );
+            })
+          }
+          <div style={{paddingTop:10}}>
+            <button disabled={disabledInput} className="btn btn-default" type="submit">Save</button>
+          </div>
         </form>
       {this.props.observer ? <p><b> Players are submitting their guesses</b></p> : null}
       {this.state.warningOn ? <p>Error: Please select an option for each question</p> : null}
