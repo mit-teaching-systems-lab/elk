@@ -42,9 +42,11 @@ class Quiz extends React.Component {
         <form onSubmit={this.onHandleFormSubmit}>
           {
             this.props.questions.map((q, i) =>{
+              var path = "/GameBundles/Images/" + q.image + ".png";
               return (
                 <div key={i}>
-                  <p>{q}</p>
+                  <p>{q.question}</p>
+                  {q.image.length > 0 ? <img style={{maxHeight:100}} src={path} /> : null}
                   <div className="radio">
                       <label>
                         <input disabled={disabledInput} onChange={this.onHandleOptionChange.bind(this,i)} name={i} type="radio" value={true} />

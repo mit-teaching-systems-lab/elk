@@ -79,20 +79,17 @@ class Game extends React.Component {
   render() {
     var studentID = 0;
     var questionObjects = this.props.route.bundle.questions;
-    var questions = questionObjects.map(questionObj => questionObj.question);
-    var solutions = questionObjects.map(questionObj => questionObj.answer[studentID]);
     var quiz = (
         <Quiz 
           submitAnswers={this.submitAnswers}
-          questions={questions}
+          questions={questionObjects}
           observer={this.state.role=="observer"}/>
         );
     var scoreTable = (
         <Score
           studentAnswers={this.state.studentAnswers}
           teacherAnswers={this.state.teacherAnswers}
-          questions={questions}
-          solutions={solutions}
+          questions={questionObjects}
         />
       );
     var challenge = (
