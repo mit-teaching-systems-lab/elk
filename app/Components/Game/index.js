@@ -4,16 +4,27 @@ import Profile from '../Profile';
 import Quiz from '../Quiz';
 import RoleSelectionMenu from '../RoleSelectionMenu';
 import Score from '../Score';
+import MenuBar from '../MenuBar';
 import io from 'socket.io-client';
-let socket = io.connect('');
  
+let socket = null;
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {roundBegan: false, studentAnswers: null, teacherAnswers: null, scoreAvailable: false, role: null, roundOver: false, isActiveGame: false, takenRoles: null};
-    socket.on('isgameID', (flag, takenRoles) => this._isGameID(flag, takenRoles));
-    socket.on('grade', (submissions) => this.grade(submissions));
-    this.setRoleOptions = this.setRoleOptions.bind(this);
+    this.state = {
+      roundBegan: false, 
+      studentAnswers: null, 
+      teacherAnswers: null, 
+      scoreAvailable: false, 
+      role: null, 
+      roundOver: false, 
+      isActiveGame: false, 
+      takenRoles: null,
+      playerReady: false
+    };
+    this.setPlayerReady = this.setPlayerReady.bind(this);
+    this.showRoleOptions = this.showRoleOptions.bind(this);
     this.selectRole = this.selectRole.bind(this);
     this.submitAnswers = this.submitAnswers.bind(this);
     this.grade = this.grade.bind(this);
@@ -21,10 +32,18 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
+    socket = io.connect('');
+    socket.on('isgameID', (flag, takenRoles) => this._isGameID(flag, takenRoles));
+    socket.on('grade', (submissions) => this.grade(submissions));
+    socket.on('bothPlayersReady', () => this.beginGame());
     socket.emit('joingame', this.props.params.gameID);
   }
 
-  setRoleOptions(takenRoles) {
+  beginGame() {
+    this.setState({roundBegan: true});
+  }
+
+  showRoleOptions(takenRoles) {
     var studentDisabled = false;
     var teacherDisabled = false;
     if (takenRoles.length == 2) {
@@ -66,14 +85,22 @@ class Game extends React.Component {
   }
 
   grade(submissions) {
-    this.setState({studentAnswers: Object.values(submissions.student)});
-    this.setState({teacherAnswers: Object.values(submissions.teacher)});
+    this.setState({studentAnswers: Object.values(submissions.student.answers)});
+    this.setState({teacherAnswers: Object.values(submissions.teacher.answers)});
     this.setState({scoreAvailable: true});
   }
 
   toggleRoundOver() {
     var roundOver = !this.state.roundOver;
     this.setState({roundOver: roundOver});
+  }
+
+  setPlayerReady() {
+    console.log(this.props.params.gameID + " is ready");
+    console.log(this.state.role);
+    console.log()
+    socket.emit("playerReady", this.state.role, this.props.params.gameID);
+    // this.setState({roundBegan:true});
   }
 
   render() {
@@ -104,7 +131,7 @@ class Game extends React.Component {
       );
     } else if (this.state.role==null) {
       return(
-        this.setRoleOptions(this.state.takenRoles)
+        this.showRoleOptions(this.state.takenRoles)
       );
     }
     if (this.state.at_capacity) {
@@ -114,6 +141,11 @@ class Game extends React.Component {
     } else {
       return (
         <div>
+          <MenuBar 
+            setPlayerReady={this.setPlayerReady} 
+            roundOver={this.state.roundOver} 
+            roundBegan={this.state.roundBegan}
+          />
           <div style={{display:'flex', flexDirection:'row'}}>
             <div style={{flex:1}}>
               <ChatApp isObserver={this.state.role=="observer"} socket={socket} user={this.state.role}/>
@@ -122,7 +154,7 @@ class Game extends React.Component {
               <div style={{display:'flex', flexDirection:'column', height:"100%", borderLeftColor: "gray", borderLeftWidth: 2, borderLeftStyle:"solid"}}>
                 <div style={{flex:1, overflowY:"scroll", paddingLeft: 10}}>
                   <Profile role={this.state.role} studentID={studentID} profileData={this.props.route.bundle[this.state.role]} />
-                  <button onClick={() => this.toggleRoundOver()}>
+                  <button onClick={this.toggleRoundOver}>
                     {this.state.roundOver? "Close challenge while round is ongoing":  "View Challenge when round is over"}
                   </button>
                 </div>

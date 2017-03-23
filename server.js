@@ -40,26 +40,35 @@ io.on('connection', function (socket) {
     while (gameID in gameIDs) {
       gameID = Math.round((Math.random()*10000));
     }
-    gameIDs[gameID] = {};
+    gameIDs[gameID] = {"numReady":0, "players": {}, "numObservers": 0};
     socket.emit('assigngameID', gameID);
   });
 
-  var takenRoles = null;
+  
   socket.on('joingame', function(gameID) {
+    var takenRoles = null;
     var isGameID = gameID in gameIDs;
     if (isGameID) {
-      takenRoles = Object.keys(gameIDs[gameID]);
+      takenRoles = Object.keys(gameIDs[gameID].players);
     }
+    console.log("join game");
+    console.log(takenRoles);
     socket.emit('isgameID', isGameID, takenRoles);
   });
 
   // sets role from RoleSelectionMenu
   socket.on('settingrole', function(selectedRole, gameID) {
-    var takenRoles = Object.keys(gameIDs[gameID]);
+    var game = gameIDs[gameID];
+    var takenRoles = Object.keys(game.players);
+    console.log("setting role");
+    console.log(takenRoles);
     var message = "";
     socket.username = "observer";
     if (selectedRole!="observer") {
-      gameIDs[gameID][selectedRole] = null;
+      gameIDs[gameID].players[selectedRole] = {};
+    } else {
+      gameIDs[gameID].numObservers +=1;
+      socket.username = "observer" + gameIDs[gameID].numObservers;
     }
     socket.room = gameID;
     socket.username = selectedRole;
@@ -69,18 +78,34 @@ io.on('connection', function (socket) {
     if (takenRoles.length == 0) {
       message = "You are the only player in this game";
     } else {
-      message = takenRoles[0].charAt(0).toUpperCase() + takenRoles[0].slice(1) + " has connected to this game";
+      var onlinePlayers = takenRoles.map((role, i) => {
+        return role.charAt(0).toUpperCase() + role.slice(1);
+      });
+      var observers = " " + gameIDs[gameID].numObservers > 0 ? gameIDs[gameID].numObservers + " observer(s)" : "";
+      console.log("oneline players");
+      console.log(onlinePlayers);
+      console.log(String(onlinePlayers));
+      message = String(onlinePlayers) + observers + (onlinePlayers.length > 1 ? " have" : " has") + " connected to this game";
     }
     socket.emit('updatechat', {user: 'SERVER', text: message});
   });
 
+  socket.on('playerReady', function(role, gameID) {
+    var game = gameIDs[gameID];
+    var numPlayers = 2;
+    game.ready = game.ready + 1;
+    if (game.ready == numPlayers) {
+      socket.in(socket.room).emit('bothPlayersReady');
+    }
+  });
+
   // accepts answers from Quiz
   socket.on('setanswer', function(answerChoices, role, gameID) {
-    var game = gameIDs[gameID];
-    game[role] = answerChoices;
+    var players = gameIDs[gameID].players;
+    players[role]["answers"] = answerChoices;
     // once both answers are submitted
-    if ((game.student != null) && (game.teacher !=null)) {
-      io.sockets.in(socket.room).emit('grade', game);
+    if ((players.student.answers != null) && (players.teacher.answers !=null)) {
+      io.sockets.in(socket.room).emit('grade', players);
     }
   }); 
 
