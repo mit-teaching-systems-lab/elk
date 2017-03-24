@@ -25,7 +25,7 @@ class Score extends React.Component {
             {q.image.length > 0 ? <img style={{maxHeight:"100%", maxWidth:"100%"}} src={path} /> : null}
           </div>
           <div style={style}>
-            {q.answer ? "True": "False"}
+            {q.answer[this.props.studentID] ? "True": "False"}
           </div>
           <div style={style}>
             {this.props.studentAnswers[i] ? "True" : "False"}
@@ -62,7 +62,8 @@ class Score extends React.Component {
 Score.propTypes = {
   questions: React.PropTypes.array.isRequired,
   studentAnswers: React.PropTypes.array,
-  teacherAnswers: React.PropTypes.array
+  teacherAnswers: React.PropTypes.array,
+  studentID: React.PropTypes.integer
 };
 
 export default Score;
