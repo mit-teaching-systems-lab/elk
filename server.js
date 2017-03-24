@@ -13,7 +13,7 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
  
 app.use(express.static(__dirname + '/app'));
-
+  
 app.use(webpackDevMiddleware(compiler, {
   hot: true,
   filename: 'bundle.js',

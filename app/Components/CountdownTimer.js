@@ -20,6 +20,7 @@ class CountdownTimer extends React.Component {
     this.setState({secondsRemaining: this.state.secondsRemaining - 1});
     if (this.state.secondsRemaining <= 0) {
       clearInterval(this.interval);
+      this.props.setRoundOver();
     }
   }
 
@@ -36,7 +37,8 @@ class CountdownTimer extends React.Component {
 }
 
 CountdownTimer.propTypes = {
-  secondsRemaining: React.PropTypes.number
+  secondsRemaining: React.PropTypes.number,
+  setRoundOver: React.PropTypes.func.isRequired
 };
 
 export default CountdownTimer;

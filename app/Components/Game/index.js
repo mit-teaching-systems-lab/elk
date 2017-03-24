@@ -30,6 +30,7 @@ class Game extends React.Component {
     this.grade = this.grade.bind(this);
     this.toggleRoundOver = this.toggleRoundOver.bind(this);
     this.beginGame = this.beginGame.bind(this);
+    this.setRoundOver = this.setRoundOver.bind(this);
   }
 
   componentDidMount() {
@@ -100,6 +101,10 @@ class Game extends React.Component {
     socket.emit("playerReady", this.state.role, this.props.params.gameID);
   }
 
+  setRoundOver() {
+    this.setState({roundOver:true});
+  }
+
   render() {
     var studentID = 0;
     var questionObjects = this.props.route.bundle.questions;
@@ -142,18 +147,22 @@ class Game extends React.Component {
             setPlayerReady={this.setPlayerReady} 
             roundOver={this.state.roundOver} 
             roundBegan={this.state.roundBegan}
+            setRoundOver={this.setRoundOver}
           />
           <div style={{display:'flex', flexDirection:'row'}}>
             <div style={{flex:1}}>
-              <ChatApp isObserver={this.state.role=="observer"} socket={socket} user={this.state.role}/>
+              <ChatApp 
+                roundBegan={this.state.roundBegan}
+                roundOver={this.state.roundOver}
+                isObserver={this.state.role=="observer"} 
+                socket={socket} 
+                user={this.state.role}
+              />
             </div>
             <div style={{flex:1}}>
               <div style={{display:'flex', flexDirection:'column', height:"100%", borderLeftColor: "gray", borderLeftWidth: 2, borderLeftStyle:"solid"}}>
                 <div style={{flex:1, overflowY:"scroll", paddingLeft: 10}}>
                   <Profile role={this.state.role} studentID={studentID} profileData={this.props.route.bundle[this.state.role]} />
-                  <button onClick={this.toggleRoundOver}>
-                    {this.state.roundOver? "Close challenge while round is ongoing":  "View Challenge when round is over"}
-                  </button>
                 </div>
                   {this.state.roundOver ? challenge : null}
               </div>
