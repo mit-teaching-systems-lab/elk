@@ -27,6 +27,7 @@ class ChatApp extends React.Component {
         user={this.props.user}
       />
     </div>;
+    var isActive = !this.props.isObserver && this.props.roundBegan && !this.props.roundOver;
     return (
       <div>
         <div style={{display:'flex', flexDirection:'column', height:"100%"}}>
@@ -36,7 +37,7 @@ class ChatApp extends React.Component {
               messages={this.state.messages}
             />
           </div>
-          {this.props.isObserver? null : messageForm}
+          {isActive ? messageForm : null}
           
         </div>
       </div>
@@ -47,7 +48,9 @@ class ChatApp extends React.Component {
 ChatApp.propTypes = {
   socket: React.PropTypes.object.isRequired,
   user: React.PropTypes.string.isRequired,
-  isObserver: React.PropTypes.bool.isRequired
+  isObserver: React.PropTypes.bool.isRequired,
+  roundBegan: React.PropTypes.bool.isRequired,
+  roundOver: React.PropTypes.bool.isRequired
 };
 
 export default ChatApp;
