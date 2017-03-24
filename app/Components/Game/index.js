@@ -119,6 +119,7 @@ class Game extends React.Component {
           studentAnswers={this.state.studentAnswers}
           teacherAnswers={this.state.teacherAnswers}
           questions={questionObjects}
+          studentID={studentID}
         />
       );
     var challenge = (
