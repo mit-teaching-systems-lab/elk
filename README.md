@@ -1,6 +1,14 @@
 # elk
 An educational, roleplay game for teachers to practice eliciting learner knowledge
 
+CREATE TABLE chat_messages (
+ id serial primary key,
+ game_id integer,
+ player text,
+ message text,
+ timestamp timestamp
+);
+
 Setup
 ---
  

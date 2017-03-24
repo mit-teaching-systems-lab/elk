@@ -1,5 +1,7 @@
 require('babel-register');
 
+var pg = require('pg');
+
 var path = require('path');
 var express = require('express');
 var webpackDevMiddleware = require('webpack-dev-middleware');
@@ -30,6 +32,43 @@ app.get('*', function (request, response){
 
 var port = process.env.NODE_ENV == "production" ? process.env.PORT : '3333';
 server.listen(port);
+
+// api routes
+// helper for db connection pooling
+function queryDatabase(text, values, cb) {
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query(text, values, function(err, result) {
+      done();
+      cb(err, result);
+    });
+  });
+}
+
+// This endpoint that receives all evidence.
+app.post('/server/chat_messages/:game_id/:player/:message', function(request, response) {
+  const timestamp = Math.floor(new Date().getTime() / 1000);
+  const {gameID, player, message} = request.params;
+  const values = [gameID, player, message, timestamp];
+
+  if (!process.env.DATABASE_URL) {
+    console.log('No database.');
+    response.status(204);
+    return response.json({});
+  }
+
+  const sql = `
+    INSERT INTO chat_messages(game_id, player, message, timestamp)
+    VALUES ($1,$2,$3,to_timestamp($4))`;
+  queryDatabase(sql, values, function(err, result) {
+    if (err) {
+      console.log({ error: err });
+      return response.status(500);
+    }
+    console.log(JSON.stringify(result));
+    response.status(201);
+    return response.json({});  
+  });
+});
 
 var gameIDs = {};
 
