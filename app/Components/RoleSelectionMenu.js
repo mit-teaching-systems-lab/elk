@@ -3,21 +3,26 @@ import React from 'react';
 class RoleSelectionMenu extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {selectedRole: null, studentDisabled: false, teacherDisabled: false};
+    this.state = {selectedRole: null, studentDisabled: false, teacherDisabled: false, errorOn: false};
     this.onHandleOptionChange = this.onHandleOptionChange.bind(this);
     this.onHandleFormSubmit = this.onHandleFormSubmit.bind(this);
   }
 
   onHandleOptionChange(changeEvent) {
     this.setState({
-      selectedRole: changeEvent.target.value
+      selectedRole: changeEvent.target.value, errorOn: false
     });
   }
 
   onHandleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault();
-    this.props.socket.emit('settingrole', this.state.selectedRole, this.props.gameID);
-    this.props.selectRole(this.state.selectedRole);
+    if (this.state.selectedRole) {
+      this.props.socket.emit('settingrole', this.state.selectedRole, this.props.gameID);
+      this.props.selectRole(this.state.selectedRole);
+    } else {
+      this.setState({errorOn: true});
+    }
+    
   }
 
   render() {
@@ -53,6 +58,7 @@ class RoleSelectionMenu extends React.Component {
           </label>
           <p/>
           <button className="btn btn-default" type="submit">Enter Game</button>
+          {this.state.errorOn ? <p> You must select a role to continue </p> : null}
         </form>
       </div>
     );

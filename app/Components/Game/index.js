@@ -29,6 +29,7 @@ class Game extends React.Component {
     this.submitAnswers = this.submitAnswers.bind(this);
     this.grade = this.grade.bind(this);
     this.toggleRoundOver = this.toggleRoundOver.bind(this);
+    this.beginGame = this.beginGame.bind(this);
   }
 
   componentDidMount() {
@@ -96,11 +97,7 @@ class Game extends React.Component {
   }
 
   setPlayerReady() {
-    console.log(this.props.params.gameID + " is ready");
-    console.log(this.state.role);
-    console.log()
     socket.emit("playerReady", this.state.role, this.props.params.gameID);
-    // this.setState({roundBegan:true});
   }
 
   render() {

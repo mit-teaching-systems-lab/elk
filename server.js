@@ -51,8 +51,6 @@ io.on('connection', function (socket) {
     if (isGameID) {
       takenRoles = Object.keys(gameIDs[gameID].players);
     }
-    console.log("join game");
-    console.log(takenRoles);
     socket.emit('isgameID', isGameID, takenRoles);
   });
 
@@ -60,8 +58,6 @@ io.on('connection', function (socket) {
   socket.on('settingrole', function(selectedRole, gameID) {
     var game = gameIDs[gameID];
     var takenRoles = Object.keys(game.players);
-    console.log("setting role");
-    console.log(takenRoles);
     var message = "";
     socket.username = "observer";
     if (selectedRole!="observer") {
@@ -82,20 +78,17 @@ io.on('connection', function (socket) {
         return role.charAt(0).toUpperCase() + role.slice(1);
       });
       var observers = " " + gameIDs[gameID].numObservers > 0 ? gameIDs[gameID].numObservers + " observer(s)" : "";
-      console.log("oneline players");
-      console.log(onlinePlayers);
-      console.log(String(onlinePlayers));
-      message = String(onlinePlayers) + observers + (onlinePlayers.length > 1 ? " have" : " has") + " connected to this game";
+      var onlinePlayersString = onlinePlayers.join(", ") + (onlinePlayers.length > 0 ? ", " : "");
+      message =  onlinePlayersString + observers + (onlinePlayers.length > 1 ? " have" : " has") + " connected to this game";
     }
     socket.emit('updatechat', {user: 'SERVER', text: message});
   });
 
   socket.on('playerReady', function(role, gameID) {
-    var game = gameIDs[gameID];
-    var numPlayers = 2;
-    game.ready = game.ready + 1;
-    if (game.ready == numPlayers) {
-      socket.in(socket.room).emit('bothPlayersReady');
+    gameIDs[gameID].numReady += 1;
+    var numPlayers = 2; // hard coded for now 
+    if ( gameIDs[gameID].numReady == numPlayers) {
+      io.sockets.in(socket.room).emit('bothPlayersReady');
     }
   });
 
