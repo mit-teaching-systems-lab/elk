@@ -63,7 +63,7 @@ Score.propTypes = {
   questions: React.PropTypes.array.isRequired,
   studentAnswers: React.PropTypes.array,
   teacherAnswers: React.PropTypes.array,
-  studentID: React.PropTypes.integer
+  studentID: React.PropTypes.number
 };
 
 export default Score;
