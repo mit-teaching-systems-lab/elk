@@ -24,8 +24,13 @@ class CountdownTimer extends React.Component {
   }
 
   render() {
+    var secondsDisplay = this.state.secondsRemaining % 60;
+    
+    if (secondsDisplay < 10) {
+      secondsDisplay = "0" + secondsDisplay;
+    }
     return (
-      React.DOM.div(null, "Time Remaining: ", Math.floor(this.state.secondsRemaining / 60), ':', this.state.secondsRemaining % 60)
+      React.DOM.div(null, "Time Remaining: ", Math.floor(this.state.secondsRemaining / 60), ':', secondsDisplay)
     );
   }
 }

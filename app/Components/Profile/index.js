@@ -21,11 +21,11 @@ class Profile extends React.Component {
   render() {
     var profileData = this.props.profileData;
     var role = this.props.role;
-    var background = 
+    var background = profileData ? 
       <div>
         <h2>Background</h2>
         <p>{profileData.background}</p>
-      </div>;
+      </div> : null;
     if (role == "teacher") {
       return (
         <div style={{flex:1}}>

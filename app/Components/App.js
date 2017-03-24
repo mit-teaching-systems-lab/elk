@@ -42,7 +42,7 @@ class App extends React.Component {
       <div>
         <h1> Welcome to MIT Teaching System Lab's ELK Game </h1>
         <p> Create a new game using the button below </p>
-        <button onClick={() => this.createGame()}> Create New Game</button>
+        <button onClick={this.createGame}> Create New Game</button>
         <form onSubmit={this.onJoinGame} className="MyForm">
           <p>Or join an existing game using the game ID </p>
           <input type="text" value={this.state.value} onChange={this.onHandleChange} placeholder="gameID"/>
