@@ -15,7 +15,7 @@ class MenuBar extends React.Component {
  
   render() {
     var startButton = <button disabled={this.state.startButtonClicked} onClick={this.startButtonClick}> Begin Round </button>;
-    var countdownTimer = <CountdownTimer secondsRemaining={5} setRoundOver={this.props.setRoundOver}/>;
+    var countdownTimer = <CountdownTimer secondsRemaining={420} setRoundOver={this.props.setRoundOver}/>;
     return (
       <div style={{borderBottomStyle:"solid", borderBottomWidth: 1}}>
         {this.props.roundBegan ?  countdownTimer: startButton}
