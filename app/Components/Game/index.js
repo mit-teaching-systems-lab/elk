@@ -18,7 +18,7 @@ class Game extends React.Component {
       teacherAnswers: null, 
       scoreAvailable: false, 
       role: null, 
-      roundOver: false,
+      roundOver: true,
       isActiveGame: false, 
       takenRoles: null,
       playerReady: false
