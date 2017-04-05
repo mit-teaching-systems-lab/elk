@@ -7,7 +7,7 @@ class Score extends React.Component {
 
   render() {
     var studentCorrectness = this.props.questions.map((e, i) => {
-      return e.answer == this.props.studentAnswers[i];
+      return e.answer[this.props.studentID] == this.props.studentAnswers[i];
     });
     var teacherCorrectness = this.props.studentAnswers.map((e,i) => {
       return e == this.props.teacherAnswers[i];
