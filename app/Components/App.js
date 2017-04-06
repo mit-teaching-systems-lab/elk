@@ -38,12 +38,19 @@ class App extends React.Component {
   }
 
   render() {
+    var games = ['rational', 'evolution2', 'chromosomes', 'cell1'];
     return (
       <div>
         <h1> Welcome to MIT Teaching System Lab's ELK Game </h1>
-        <p> Create a new game using the button below </p>
-        <button onClick={() => this.createGame('rational')}> Create New Game: Rational</button>
-        <button onClick={() => this.createGame('evolution2')}> Create New Game: Evolution2</button>
+        <p> Create a new game by selecting a new topic using the buttons below </p>
+        <div>
+          {
+            games.map((bundleID, i) => {
+              return <p key={i}><button onClick={() => this.createGame(bundleID)}> {bundleID.charAt(0).toUpperCase() + bundleID.slice(1)}</button></p>;
+            })
+          }
+
+        </div>
         <form onSubmit={this.onJoinGame} className="MyForm">
           <p>Or join an existing game using the game ID </p>
           <input type="text" value={this.state.value} onChange={this.onHandleChange} placeholder="gameID"/>

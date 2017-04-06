@@ -1,23 +1,23 @@
 import React from 'react';
 import { Router, Route, hashHistory} from 'react-router';
 import Game from './Components/Game/index.js';
-import rational from './GameBundles/rational.json';
+
 import App from './Components/App';
+
+// Import game bundle json file here 
+import rational from './GameBundles/rational.json';
 import evolution2 from './GameBundles/evolution2.json';
+import chromosomes from './GameBundles/chromosomes.json';
+import cell1 from './GameBundles/cell1.json';
 
-// var gameBundle = {};
-// gameBundle["teacher"] = rational.teacher;
-// gameBundle["student"] = rational.students;
-// var questions = [];
-// for (var i = 0; i < rational.questions.length; i++) {
-//   var q = {};
-//   q["answer"] = rational.questions[i].answer["0"];
-//   q["question"] = rational.questions[i].question;
-//   questions.push(q);
-// }
-// gameBundle["questions"] = questions;
+// Insert game bundle into bundles dictionary
+var bundles = {
+  'rational': rational, 
+  'evolution2': evolution2,
+  'chromosomes': chromosomes,
+  'cell1': cell1
+};
 
-var bundles = {'rational': rational, 'evolution2': evolution2};
 export default (
   <Router history={hashHistory}>
     <Route path='/' component={App}/>
