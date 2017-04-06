@@ -8,9 +8,16 @@ class Message extends React.Component {
   render() {
     var username = this.props.user;
     username = username.charAt(0).toUpperCase() + username.slice(1);
+    var userColor = 'black';
+    if (username=="Teacher") {
+      userColor = 'blue';
+    } else if (username == "Student") {
+      userColor = 'green';
+    }
+    var style = {color: userColor};
     return (
       <div className="message">
-        <strong style={{color:'blue'}}>{username}: </strong>
+        <strong style={style}>{username}: </strong>
         <span style={{whiteSpace:'pre-wrap'}}> {this.props.text}</span>
       </div>
     );

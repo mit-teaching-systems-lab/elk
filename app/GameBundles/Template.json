@@ -20,11 +20,13 @@
 		"profiles": [
 			{
 				"id": 0,
-				"profile": "STUDENT PROFILE 1 HERE"
+				"profile": "STUDENT PROFILE 1 HERE",
+				"images": []
 			},
 			{
 				"id": 1,
-				"profile": "STUDENT PROFILE 2 HERE"
+				"profile": "STUDENT PROFILE 2 HERE",
+				"images": []
 			}
 		]
 	},

@@ -1,0 +1,67 @@
+{
+	"id": "negative",
+	"name": "Positive and Negative Numbers",
+	"subject": "math",
+	"grade": 7,
+	"level": "middle",
+	"teacher": {
+		"background": "You are teaching a seventh grade math class. You are about to give a lesson on using operations with positive and negative numbers, which they should have a small understanding of from sixth grade. You would like to see where they are and how much they remember. There have been no assignments so far.",
+		"objective": "(1) Students understand what positive and negative numbers are and the relationship between them. (2) Student understand various operations with positive and negative numbers",
+		"hints": [
+			"You want to know if they can say whether a given number is positive or negative",
+			"You want to know if they know that negative numbers are less than zero and the same distance away from zero (in the opposite direction) of their positive counterparts",
+			"You want to know if they understand how to do various operations with positive and negative numbers (addition, multiplication)"
+		],
+		"images": [
+		]
+	},
+	"student": {
+		"background": "You are a seventh grade student in math class. You learned a little bit about positive and negative numbers last year, but it’s been a while. Your teacher would like to see where you are right now. There have been no assignments so far.",
+		"profiles": [
+			{
+				"id": 0,
+				"profile": "I think that positive numbers are numbers greater than or equal to zero, and negative numbers are numbers less than zero. Negative numbers have a - sign in front of them and are the same distance from zero as their positive counterparts. I also think that negative numbers cannot be fractions or decimals, only whole numbers with a - sign can be negative.\n\nI think that for operations with positive and negative numbers, the sign of the first number is the one for the answer. So -4+5=-1. Addition with negative numbers goes straight to subtraction. So 4+-5=4-5=-1-->1 because the first number, 4, was positive.\n\nMultiplication works by multiply all of the numbers as if they were positive, and then putting the sign of the first number in front. So -5*2=-10 and -5*-2=-10. Division works the same way as multiplication.",
+				"images": []
+			},
+			{
+				"id": 1,
+				"profile": "STUDENT PROFILE 2 HERE",
+				"images": []
+			}
+		]
+	},
+	"questions": [
+		{
+			"question": "Zero is a positive number",
+			"image": "",
+			"answer": {
+				"0": true
+			},
+			"type": "tf"
+		},
+		{
+			"question": "-5.5 is a negative number",
+			"image": "",
+			"answer": {
+				"0": false
+			},
+			"type": "tf"
+		},
+		{
+			"question": "5 + -6 = -1",
+			"image": "",
+			"answer": {
+				"0": false
+			},
+			"type": "tf"
+		},
+		{
+			"question": "6 / -2 = -3",
+			"image": "",
+			"answer": {
+				"0": false
+			},
+			"type": "tf"
+		}
+	]
+}
