@@ -6,6 +6,7 @@ class MessageForm extends React.Component {
     this.state = {text: ''};
     this.onHandleSubmit = this.onHandleSubmit.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   onHandleSubmit(e) {
@@ -20,7 +21,15 @@ class MessageForm extends React.Component {
   }
 
   onChangeHandler(e) {
-    this.setState({ text : e.target.value });
+    if (e.target.value != "\n") {
+      this.setState({ text : e.target.value });
+    }
+  }
+
+  onKeyDown(e) {
+    if (e.key == 'Enter' && this.state.text.length > 0 && !e.shiftKey) { 
+      this.onHandleSubmit(e); 
+    }
   }
 
   render() {
@@ -31,8 +40,8 @@ class MessageForm extends React.Component {
           <textarea ref="text" style={{width:"100%", height:50}}
             onChange={this.onChangeHandler}
             value={this.state.text}
+            onKeyPress={this.onKeyDown}
           />
-        <input style={{height:50}} type="submit" disabled={this.state.text.length <= 0}/>
         </form>
       </div>
     );
