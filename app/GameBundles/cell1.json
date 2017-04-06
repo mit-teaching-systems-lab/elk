@@ -10,20 +10,23 @@
 		"hints": [ 
 			"Topics may include channel and carrier proteins",
 			"Topics do not include membrane composition, ATP or osmosis"
-		]
+		],
+		"images": []
 	},
 	"student": {
 		"background": "You are a ninth grade student in an introductory biology class. You have had one lesson on membrane transport about passive and active transport of molecules in and out of a cell. No readings have been assigned yet; all students answer based on their profiles.",
 		"profiles" : [ 
 			{
 				"id": 0,
-				"profile": "In a cell, molecules like food, proteins, and waste move in and out through the membrane -- this is called membrane transport. There are different methods for membrane transport. Two main categories are passive transport and active transport (i.e. they move from more molecule-dense to less molecule-dense areas). Passive transport means transport of molecules that flow from a high concentration to a low concentration. Molecules in high concentration will want to spread out and be even, so they will move to areas of low concentration. One example of passive transport is diffusion, which is the passage of molecules through the membrane. In diffusion, the molecule just moves through the membrane. When proteins help with diffusion in the form of channel proteins for the molecules to go through, it is called facilitated diffusion. A channel protein is when a protein forms a path in the membrane for molecules to flow down the concentration gradient.\n\nActive transport is when molecules move against the concentration gradient. For this to happen, there must be energy and a carrier protein that can help the molecule move through the membrane against the concentration gradient. Since the molecule cannot just flow down the concentration gradient, the carrier protein must be present."
+				"profile": "In a cell, molecules like food, proteins, and waste move in and out through the membrane -- this is called membrane transport. There are different methods for membrane transport. Two main categories are passive transport and active transport (i.e. they move from more molecule-dense to less molecule-dense areas). Passive transport means transport of molecules that flow from a high concentration to a low concentration. Molecules in high concentration will want to spread out and be even, so they will move to areas of low concentration. One example of passive transport is diffusion, which is the passage of molecules through the membrane. In diffusion, the molecule just moves through the membrane. When proteins help with diffusion in the form of channel proteins for the molecules to go through, it is called facilitated diffusion. A channel protein is when a protein forms a path in the membrane for molecules to flow down the concentration gradient.\n\nActive transport is when molecules move against the concentration gradient. For this to happen, there must be energy and a carrier protein that can help the molecule move through the membrane against the concentration gradient. Since the molecule cannot just flow down the concentration gradient, the carrier protein must be present.",
+				"images": []
 			}
 		]
 	},
 	"questions": [
 		{
 			"question": "Two different types of membrane transport are passive and active transport",
+			"image": "",
 			"answer": {
 				"0": true
 			},
@@ -31,6 +34,7 @@
 		},
 		{
 			"question": "The passive movement of small molecules across a membrane is called diffusion",
+			"image": "",
 			"answer": {
 				"0": true
 			},
@@ -38,6 +42,7 @@
 		},
 		{
 			"question": "Active transport can be done with channel proteins",
+			"image": "",
 			"answer": {
 				"0": false
 			},

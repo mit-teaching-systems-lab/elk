@@ -35,23 +35,26 @@ var gameIDs = {};
 
 io.on('connection', function (socket) {
   // create a new game from app.js
-  socket.on('newgame', function() {
+  socket.on('newgame', function(bundleID) {
+    console.log(bundleID)
     var gameID = Math.round((Math.random()*10000));
     while (gameID in gameIDs) {
       gameID = Math.round((Math.random()*10000));
     }
-    gameIDs[gameID] = {"numReady":0, "players": {}, "numObservers": 0};
-    socket.emit('assigngameID', gameID);
+    gameIDs[gameID] = {"bundleID": bundleID, "numReady":0, "players": {}, "numObservers": 0};
+    socket.emit('assigngameID', gameID, bundleID);
   });
 
   
   socket.on('joingame', function(gameID) {
     var takenRoles = null;
+    var bundleID = null;
     var isGameID = gameID in gameIDs;
     if (isGameID) {
       takenRoles = (gameIDs[gameID].players);
+      bundleID = gameIDs[gameID].bundleID;
     }
-    socket.emit('isgameID', isGameID, takenRoles);
+    socket.emit('isgameID', isGameID, takenRoles, bundleID);
   });
 
   socket.on('checkTakenRoles', function(gameID, callback) {
