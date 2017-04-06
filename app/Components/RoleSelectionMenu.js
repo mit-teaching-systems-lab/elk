@@ -3,7 +3,7 @@ import React from 'react';
 class RoleSelectionMenu extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {selectedRole: null, studentDisabled: false, teacherDisabled: false, errorOn: false};
+    this.state = {selectedRole: null, studentDisabled: false, teacherDisabled: false, errorOn: false, errMsg: null};
     this.onHandleOptionChange = this.onHandleOptionChange.bind(this);
     this.onHandleFormSubmit = this.onHandleFormSubmit.bind(this);
   }
@@ -16,13 +16,19 @@ class RoleSelectionMenu extends React.Component {
 
   onHandleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault();
-    if (this.state.selectedRole) {
-      this.props.socket.emit('settingrole', this.state.selectedRole, this.props.gameID);
-      this.props.selectRole(this.state.selectedRole);
-    } else {
-      this.setState({errorOn: true});
-    }
-    
+    this.props.checkTakenRoles((takenRoles)=> {
+      if ((this.state.selectedRole in takenRoles) || !this.state.selectedRole) {
+        this.setState({errorOn: true});
+        if (!this.state.selectedRole) {
+          this.setState({errMsg: "You must select a role to continue."});
+        } else {
+          this.setState({errMsg: "This role has already been taken; please select another one."});
+        }
+      } else {
+        this.props.socket.emit('settingrole', this.state.selectedRole, this.props.gameID);
+        this.props.selectRole(this.state.selectedRole);
+      }
+    });
   }
 
   render() {
@@ -37,7 +43,7 @@ class RoleSelectionMenu extends React.Component {
               value="student"
               checked={this.state.selectedRole === 'student'}
               onChange={this.onHandleOptionChange}
-              disabled={this.props.studentDisabled}/>
+              disabled={"student" in this.props.takenRoles}/>
             Student
           </label>
           <label style={{padding:paddingSize}}>
@@ -45,7 +51,7 @@ class RoleSelectionMenu extends React.Component {
               value="teacher"
               checked={this.state.selectedRole === 'teacher'}
               onChange={this.onHandleOptionChange}
-              disabled={this.props.teacherDisabled}/>
+              disabled={"teacher" in this.props.takenRoles}/>
             Teacher
           </label>
           <label style={{padding:paddingSize}}>
@@ -58,7 +64,7 @@ class RoleSelectionMenu extends React.Component {
           </label>
           <p/>
           <button className="btn btn-default" type="submit">Enter Game</button>
-          {this.state.errorOn ? <p> You must select a role to continue </p> : null}
+          {this.state.errorOn ? <p> {this.state.errMsg} </p> : null}
         </form>
       </div>
     );
@@ -66,12 +72,11 @@ class RoleSelectionMenu extends React.Component {
 }
 
 RoleSelectionMenu.propTypes = {
-  takenRoles: React.PropTypes.array.isRequired,
+  takenRoles: React.PropTypes.object.isRequired,
   socket: React.PropTypes.object.isRequired,
   selectRole: React.PropTypes.func.isRequired,
   gameID: React.PropTypes.string.isRequired,
-  studentDisabled: React.PropTypes.bool.isRequired,
-  teacherDisabled: React.PropTypes.bool.isRequired
+  checkTakenRoles: React.PropTypes.func.isRequired
 };
 
 export default RoleSelectionMenu;

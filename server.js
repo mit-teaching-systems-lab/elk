@@ -49,11 +49,19 @@ io.on('connection', function (socket) {
     var takenRoles = null;
     var isGameID = gameID in gameIDs;
     if (isGameID) {
-      takenRoles = Object.keys(gameIDs[gameID].players);
+      takenRoles = (gameIDs[gameID].players);
     }
     socket.emit('isgameID', isGameID, takenRoles);
   });
 
+  socket.on('checkTakenRoles', function(gameID, callback) {
+    var takenRoles = null;
+    var isGameID = gameID in gameIDs;
+    if (isGameID) {
+      takenRoles = gameIDs[gameID].players;
+    }
+    callback(takenRoles);
+  });
   // sets role from RoleSelectionMenu
   socket.on('settingrole', function(selectedRole, gameID) {
     var game = gameIDs[gameID];

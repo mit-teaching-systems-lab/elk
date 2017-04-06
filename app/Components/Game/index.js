@@ -18,19 +18,19 @@ class Game extends React.Component {
       teacherAnswers: null, 
       scoreAvailable: false, 
       role: null, 
-      roundOver: false, 
+      roundOver: false,
       isActiveGame: false, 
       takenRoles: null,
       playerReady: false
     };
     this.setPlayerReady = this.setPlayerReady.bind(this);
-    this.showRoleOptions = this.showRoleOptions.bind(this);
     this.selectRole = this.selectRole.bind(this);
     this.submitAnswers = this.submitAnswers.bind(this);
     this.grade = this.grade.bind(this);
     this.toggleRoundOver = this.toggleRoundOver.bind(this);
     this.beginGame = this.beginGame.bind(this);
     this.setRoundOver = this.setRoundOver.bind(this);
+    this.checkTakenRoles = this.checkTakenRoles.bind(this);
   }
 
   componentDidMount() {
@@ -45,28 +45,12 @@ class Game extends React.Component {
     this.setState({roundBegan: true});
   }
 
-  showRoleOptions(takenRoles) {
-    var studentDisabled = false;
-    var teacherDisabled = false;
-    if (takenRoles.length == 2) {
-      studentDisabled = true;
-      teacherDisabled = true;
-    } else if (takenRoles.length == 1) {
-      if (takenRoles[0] == "student") {
-        studentDisabled = true;
-      } else {
-        teacherDisabled = true;
-      }
-    }
-    return(
-      <RoleSelectionMenu 
-        socket={socket} 
-        takenRoles={this.state.takenRoles} 
-        selectRole={this.selectRole}
-        gameID={this.props.params.gameID}
-        studentDisabled={studentDisabled}
-        teacherDisabled={teacherDisabled}/>
-    );
+  checkTakenRoles(callback) {
+    socket.emit('checkTakenRoles', this.props.params.gameID, (takenRoles) => {
+      this.setState({takenRoles: takenRoles});
+      callback(this.state.takenRoles);
+    });
+    
   }
 
   _isGameID(flag, takenRoles) {
@@ -134,7 +118,12 @@ class Game extends React.Component {
       );
     } else if (this.state.role==null) {
       return(
-        this.showRoleOptions(this.state.takenRoles)
+        <RoleSelectionMenu 
+        socket={socket} 
+        takenRoles={this.state.takenRoles} 
+        selectRole={this.selectRole}
+        gameID={this.props.params.gameID}
+        checkTakenRoles={this.checkTakenRoles}/>
       );
     }
     if (this.state.at_capacity) {
