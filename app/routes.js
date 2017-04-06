@@ -3,6 +3,7 @@ import { Router, Route, hashHistory} from 'react-router';
 import Game from './Components/Game/index.js';
 import rational from './GameBundles/rational.json';
 import App from './Components/App';
+import evolution2 from './GameBundles/evolution2.json';
 
 // var gameBundle = {};
 // gameBundle["teacher"] = rational.teacher;
@@ -16,9 +17,10 @@ import App from './Components/App';
 // }
 // gameBundle["questions"] = questions;
 
+var bundles = {'rational': rational, 'evolution2': evolution2};
 export default (
   <Router history={hashHistory}>
     <Route path='/' component={App}/>
-    <Route path='/:gameID' bundle={rational} component={Game}/>
+    <Route path='/:bundleID/:gameID' bundle={bundles} component={Game}/>
   </Router>
 );

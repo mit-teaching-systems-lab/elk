@@ -91,7 +91,8 @@ class Game extends React.Component {
 
   render() {
     var studentID = 0;
-    var questionObjects = this.props.route.bundle.questions;
+    var bundle = this.props.route.bundle[this.props.params.bundleID];
+    var questionObjects = bundle.questions;
     var quiz = (
         <Quiz 
           submitAnswers={this.submitAnswers}
@@ -152,7 +153,7 @@ class Game extends React.Component {
             <div style={{flex:1}}>
               <div style={{display:'flex', flexDirection:'column', height:"100%", borderLeftColor: "gray", borderLeftWidth: 2, borderLeftStyle:"solid"}}>
                 <div style={{flex:1, overflowY:"scroll", paddingLeft: 10}}>
-                  <Profile role={this.state.role} studentID={studentID} profileData={this.props.route.bundle[this.state.role]} />
+                  <Profile role={this.state.role} studentID={studentID} profileData={bundle[this.state.role]} />
                 </div>
                   {this.state.roundOver ? challenge : null}
               </div>
