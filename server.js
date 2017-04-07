@@ -1,5 +1,7 @@
 require('babel-register');
 
+var pg = require('pg'); 
+
 var path = require('path');
 var express = require('express');
 var webpackDevMiddleware = require('webpack-dev-middleware');
@@ -27,6 +29,41 @@ app.use(webpackDevMiddleware(compiler, {
 app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
+
+// TODO: backedn 
+// api routes
+// helper for db connection pooling
+function queryDatabase(text, values, cb) {
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query(text, values, function(err, result) {
+      done();
+      cb(err, result);
+    });
+  });
+}
+
+
+function addMsgToDB(gameID, player, message, callback) {
+  const timestamp = Math.floor(new Date().getTime() / 1000);
+  const values = [gameID, player, message, timestamp];
+
+  if (!process.env.DATABASE_URL) {
+    console.log('No database.');
+    return;
+  }
+
+  const sql = `
+    INSERT INTO chat_messages(game_id, player, message, timestamp)
+    VALUES ($1,$2,$3,to_timestamp($4))`;
+  queryDatabase(sql, values, function(err, result) {
+    if (err) {
+      console.log({ error: err });
+      return callback(err);
+    }
+    console.log(JSON.stringify(result));
+    return callback(null, result);  
+  });
+}
 
 var port = process.env.NODE_ENV == "production" ? process.env.PORT : '3333';
 server.listen(port);
@@ -114,9 +151,16 @@ io.on('connection', function (socket) {
   }); 
 
   // when the client emits 'sendchat', this listens and executes
-  socket.on('sendchat', function (data) {
+  socket.on('sendchat', function (gameID, data) { // TODO: update
     // we tell the client to execute 'updatechat' with 2 parameters
+    var user = data.user;
+    var msg = data.text;
     io.sockets.in(socket.room).emit('updatechat', data);
+    addMsgToDB(gameID, user, msg, function(err, result) {
+      if (err) {
+        console.log("database error" + JSON.stringify(err));
+      }
+    });
   });
 
   // when the user disconnects.. perform this

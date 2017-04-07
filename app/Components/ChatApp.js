@@ -17,7 +17,7 @@ class ChatApp extends React.Component {
   }
 
   handleMessageSubmit(message) {
-    this.props.socket.emit('sendchat', message);
+    this.props.socket.emit('sendchat', this.props.gameID, message);
   }
 
   render() {
@@ -50,7 +50,8 @@ ChatApp.propTypes = {
   user: React.PropTypes.string.isRequired,
   isObserver: React.PropTypes.bool.isRequired,
   roundBegan: React.PropTypes.bool.isRequired,
-  roundOver: React.PropTypes.bool.isRequired
+  roundOver: React.PropTypes.bool.isRequired,
+  gameID: React.PropTypes.number.isRequired
 };
 
 export default ChatApp;
