@@ -148,6 +148,7 @@ class Game extends React.Component {
                 isObserver={this.state.role=="observer"} 
                 socket={socket} 
                 user={this.state.role}
+                gameID={this.props.params.gameID}
               />
             </div>
             <div style={{flex:1}}>
