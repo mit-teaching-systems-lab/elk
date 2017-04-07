@@ -30,9 +30,6 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
 
-// TODO: backedn 
-// api routes
-// helper for db connection pooling
 function queryDatabase(text, values, cb) {
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query(text, values, function(err, result) {
