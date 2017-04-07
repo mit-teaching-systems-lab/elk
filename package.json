@@ -7,7 +7,7 @@
     "compile": "webpack",
     "test": "npm run lint",
     "lint": "eslint --ext jsx --ext js -c .eslintrc app",
-    "start": "DATABASE_URL=http://localhost:5432 node server.js "
+    "dev": "DATABASE_URL=http://localhost:5432 node server.js "
   },
   "repository": {
     "type": "git",
