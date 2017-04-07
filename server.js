@@ -1,5 +1,7 @@
 require('babel-register');
 
+var pg = require('pg'); 
+
 var path = require('path');
 var express = require('express');
 var webpackDevMiddleware = require('webpack-dev-middleware');
