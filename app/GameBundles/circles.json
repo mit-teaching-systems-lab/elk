@@ -1,0 +1,53 @@
+{
+	"id": "circles", 
+	"name": "Cricles",
+	"subject": "math",
+	"grade": 7,
+	"level": "middle",
+	"teacher": {
+		"background": "You are teaching a seventh grade math class. You are about to give a lesson on the formulas and various definitions of a circle, and you would like to see where they are first. There have been no assignments yet.",
+		"objective": "(1) Students understand the formulas for the area and circumference of a circle. \n\n(2) Students understand the relationship between radius and diameter. \n\n(3) Students know how to apply these things to problems.",
+		"hints": [
+			"You want to know if they know the differences between circumference and area and their formulas (circumference=2*pi*r and area=pi*r^2)",
+			"An example of what they should demonstrate is if asked “What is the area of a circle with diameter 10?” They should answer 25*pi. If asked “What is the approximation of the area of a circle with diameter 10” They would answer 25*3.14, or 78.5"
+		],
+		"images": [
+		]
+	},
+	"student": {
+		"background": "You are a seventh grade student. You are about to have a lesson on the formulas and various definitions of a circle, and your teacher would like to see where you are first. There have been no assignments yet.",
+		"profiles": [
+			{
+				"id": 0,
+				"profile": "I think that radius is the distance from the center of the circle to the perimeter and that diameter is any straight line that passes through the center of the circle and whose endpoints lie on the circle. I understand that the diameter is twice the distance of the radius.\n\nI think that circumference is the distance around a circle and the area of a circle is the number of square units inside the circle. The formula for both of these is 2*pi*r. I’m not exactly sure what r is, but I’m guessing that whatever thing they give us in the problem, we can just put in for r. Also, whether or not I am asked for the actual value or just an approximation, I think I should substitute pi with 3.14 in order to get an approximation, just so I end up with a number for whatever value I’m solving for.",
+				"images": []
+			}
+		]
+	},
+	"questions": [
+		{
+			"question": "62.8 is an approximation for the circumference of a circle with a diameter of 10.",
+			"image": "",
+			"answer": {
+				"0": true
+			},
+			"type": "tf"
+		},
+		{
+			"question": "The approximation of the area of a circle with radius 5 is 25*3.14 (which is 78.5)",
+			"image": "",
+			"answer": {
+				"0": false
+			},
+			"type": "tf"
+		},
+		{
+			"question": "The circumference of a circle with radius 12 is 24*pi as our final answer.",
+			"image": "",
+			"answer": {
+				"0": false
+			},
+			"type": "tf"
+		}
+	]
+}

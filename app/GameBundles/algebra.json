@@ -1,0 +1,51 @@
+{
+	"id": "algebra",
+	"name": "Algebra", 
+	"subject": "math",
+	"grade": 6,
+	"level": "middle",
+	"teacher": {
+		"background": "You are teaching a 6th grade class about variables and equations that involve variables. You would like to see what the students know before starting the lesson. No assignments have been given.",
+		"objective": "Solve real-world and mathematical problems by writing and solving equations of the form x + p = q and px = q for cases in which p, q and x are all nonnegative rational numbers.",
+		"hints": [
+		],
+		"images": [
+		]
+	},
+	"student": {
+		"background": "You are a 6th grade student in math class. Your teacher is about to start a lesson on variables and equations, and would like to see what you already know.",
+		"profiles": [
+			{
+				"id": 0,
+				"profile": "Any letter given to me has the value of the where that letter is in the alphabet. A (or a) always has a value of 1, b always has a value of 2, and so on. Even if the problem tries to trick me by saying a=3, I will always input the value of 1 for a. I will always convert to numbers before I do anything else with the problem.\n\nIf anything is given to me without operation symbols(+,*,-,/), I will just stick the number in front of that value. An example would be 3a. I know that a has to be 1. The value of this would be 31.",
+				"images": []
+			}
+		]
+	},
+	"questions": [
+		{
+			"question": "The value of 4a is always 41.",
+			"image": "",
+			"answer": {
+				"0": true
+			},
+			"type": "tf"
+		},
+		{
+			"question": "For d=8, 5*d is 40.",
+			"image": "",
+			"answer": {
+				"0": false
+			},
+			"type": "tf"
+		},
+		{
+			"question": "It is possible for a+b=c+d",
+			"image": "",
+			"answer": {
+				"0": false
+			},
+			"type": "tf"
+		}
+	]
+}

@@ -73,7 +73,6 @@ var gameIDs = {};
 io.on('connection', function (socket) {
   // create a new game from app.js
   socket.on('newgame', function(bundleID) {
-    console.log(bundleID)
     var gameID = Math.round((Math.random()*10000));
     while (gameID in gameIDs) {
       gameID = Math.round((Math.random()*10000));

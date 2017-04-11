@@ -38,7 +38,7 @@ class App extends React.Component {
   }
 
   render() {
-    var games = ['rational', 'evolution2', 'chromosomes', 'cell1'];
+    var games = ['rational', 'evolution2', 'chromosomes', 'cell1', 'circles', 'negative', 'algebra'];
     return (
       <div>
         <h1> Welcome to MIT Teaching System Lab's ELK Game </h1>
