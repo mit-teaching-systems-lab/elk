@@ -162,6 +162,10 @@ io.on('connection', function (socket) {
     });
   });
 
+  socket.on('sendtypingstate', function(gameID, user, typingState) {
+    io.sockets.in(socket.room).emit('receiveTypingState', user, typingState);
+  });
+
   // when the user disconnects.. perform this
   socket.on('disconnect', function(){
     // echo globally that this client has left
