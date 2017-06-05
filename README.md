@@ -24,3 +24,8 @@ node server.js
 ```
 
 Deployed at https://tsl-elk.herokuapp.com/
+
+
+Analyze data
+---
+Ask someone in the lab about other data analysis tools, beyond what's in `scripts`.
