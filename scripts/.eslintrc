@@ -1,0 +1,19 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+  "camelcase": ["error", { "properties": "always" }],
+    "indent": ["error", 2],
+    "semi": ["error", "always"],
+    "no-console": ["ignore", "always"],
+    "comma-dangle": ["error", "only-multiline"],
+    "no-unused-vars": ["error", {
+      "args": "none"
+    }],
+    "no-use-before-define": "off",
+    "eol-last": "off"
+  }
+}

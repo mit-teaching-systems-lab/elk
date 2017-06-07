@@ -61,11 +61,7 @@ function queryAllTables(tables, cb) {
 
 function main() {
   const tables = [
-    'evidence',
-    'evaluations',
-    'message_popup_questions',
-    'reviews',
-    'review_tokens'
+    'chat_messages'
   ];
   queryAllTables(tables, (err, output) => {
     if (err) {

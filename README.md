@@ -25,6 +25,8 @@ node server.js
 
 Deployed at https://tsl-elk.herokuapp.com/
 
+Analyze data
+---
 ==================================================================
 
 ## ELK Development: Getting Started
