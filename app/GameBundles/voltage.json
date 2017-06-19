@@ -1,0 +1,60 @@
+{
+	"id": "voltage",
+	"name": "Voltage and Circuits",
+	"subject": "physics",
+	"grade": 11,
+	"level": "high",
+	"teacher": {
+		"background": "You are teaching a junior and senior physics class.  You are about to start teaching a unit on circuits. Your students have some experience with electromagnetic forces, but they may have misconceptions and have never applied their knowledge to circuits before. You have not yet assigned readings for this unit.",
+		"objective": "The student understands how voltage, resistance, and current are related in a circuit. A list of topics you’ll refer to in your lesson is below; you will need to know what students know about these topics already (and what misconceptions they have) before you can start your lesson. ",
+		"hints": ["Voltage (Definition, Function of voltage in a circuit) Hint: In a prior unit, students have learned to calculate electric potential given charge distributions (eg, point charges). They may not understand how this connects to voltage.",
+			"Charges",
+			"Current"],
+		"images": [
+		]
+	},
+	"student": {
+		"background": "You are a junior in a high school physics class starting a unit on circuits. You haven’t yet been assigned any readings or work in this unit, so everything you know comes from your prior knowledge, described below. You have been learning about electric fields and forces, but you do not yet know how to apply that knowledge to circuits. You have some misconceptions.",
+		"profiles": [
+			{
+				"id": 0,
+				"profile": "I’ve learned that negative and positive charges are attracted to each other, and that current is electrons flowing through wires (1). I’m pretty sure that voltage is just a difference in charge (2), because it causes electrons to move through wires: negatively charged electrons are attracted to positive voltages (3). \n \n I’ve noticed that batteries have a plus and a minus marked on them, which I think represents the charge of each side. The minus side must be negatively charged, so it has lots of electrons and is the source of the charge flowing through the circuit. Constant current flows around the circuit until the battery is used up. Using up a battery means that all the electrons have gone to the positive side, so both sides of the battery have no charge (4). \n\nI remember equations to calculate electric potential, for example, how to relate electric potential to work or how to calculate it from a charge distribution. I don’t think those equations apply to real circuits, because they have to do with point charges in an electric field in space, not real devices connected by wires. \n\n\n\n(1) The standard representation of current is actually the flow of positive charges, although in a wire electrons in the conduction band are moving. \n\n(2) Voltage and charge are different things. Voltage is a difference in potential energy of an electromagnetic field. It can be caused by a difference in charge, but it is not charge. \n\n(3) Voltage is a relative measurement, so a “positive voltage” is just larger than some other reference point.\n\n(4) The + and - on a battery represent the relative voltage of the sides. In most batteries, neither side is charged, but a reaction occurs in the battery when the two sides are connected through a circuit. The reaction causes an electromotive force, or emf, which moves current through the circuit. ",
+				"images": []
+			},
+			{
+				"id": 1,
+				"profile": "I know a lot about how circuits work. I built one at home that makes a light bulb light up on a timer. \n\nI know that voltage is a difference in electric potential between two places in a circuit. It makes charge move through the circuit, which is called current. Current is the movement of positive charges, even though electrons are what is actually moving in the wire. Current moves from places in the circuit that have high voltage to places in the circuit with low voltage.\n\nAs current moves through the circuit, it gets used up (1). For example, if you have a lightbulb on a circuit, a little current gets lost in the light bulb, so the voltage is lower on the other side (2). This makes sense to me because I know that electric potential is electric potential energy per unit charge. So as a charge moves to an area with lower voltage, it gains energy and can do work, for example, light a lightbulb. That’s how circuits can power things, but something must be lost as the circuit uses energy, which is why the circuit loses current in a lightbulb (3). \n\nI know that resistance is related to voltage and current. I think the resistance of a component tells you how much current is lost in that component (4). \n\n\n\n (1) The current flowing into an electrical component is always the same as the current flowing out. \n\n (2)Electrical components, including lights, do cause voltage drops because they consume some of the energy of the circuit. But this voltage drop does not mean a change in current flow. \n\n (3) There will be a decrease in voltage, but not a decrease in current: the current flowing into a component is always the same as the current flowing out. An incandescent bulb has some resistance, which limits the current that can flow in or out and causes the voltage drop. \n\n(4) Resistance, current, and voltage are related by V=IR for components with constant resistance over wide ranges of voltage (most components students will see in a high school physics class are like this).",
+				"images": []
+			}
+		]
+	},
+	"questions": [
+		{
+			"question": "Voltage is the difference in electric potential energy between two points. ",
+			"image": "",
+			"answer": {
+				"0": false,
+				"1": true
+			},
+			"type": "tf"
+		},
+		{
+			"question": "A battery causes current to flow because of the voltage difference across its terminals.",
+			"image": "",
+			"answer": {
+				"0": true,
+				"1": true
+			},
+			"type": "tf"
+		},
+		{
+			"question": "In the circuit below, the same amount of current is flowing at every point in the circuit.",
+			"image": "voltage-1",
+			"answer": {
+				"0": true,
+				"1": false
+			},
+			"type": "tf"
+		}
+	]
+}

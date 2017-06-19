@@ -2,12 +2,12 @@
 	"id": "chromosomes",
 	"name": "chromosomes",
 	"subject": "biology",
-	"grade": 9, 
+	"grade": 9,
 	"level": "high",
 	"teacher": {
 		"background": "You are teaching a ninth grade introductory biology class. This is the first lesson on chromosomes. No readings have been assigned yet; all students answer based on their profiles.",
 		"objective": "The student understands how genes are passed down from parents to child through chromosomes",
-		"hints": [ 
+		"hints": [
 			"Chromosomes are made up of DNA",
 			"Chromosomes are in 23 pairs",
 			"Sex chromosomes",
@@ -19,9 +19,14 @@
 	},
 	"student": {
 		"background": "You are a ninth grade student in an introductory biology class. This is the first lesson on heredity, and we are talking about how DNA is passed down from parents to children. No readings have been assigned yet; all students answer based on their profiles.",
-		"profiles" : [ 
+		"profiles" : [
 			{
 				"id": 0,
+				"profile": "I know that children inherit traits, like brown eyes or curly hair, from their parents. I know that traits are passed down on genes, which are like instructions for cells. I know that genes have DNA, but I’m not sure what that means. I’ve also heard about chromosomes, but I don’t remember if chromosomes make up genes or the other way around. \n\nI’ve heard of sex chromosomes, so I know there is a genetic component to sex. I think that means that girls get most of their traits from their mothers, and boys from their fathers. I know that sometimes girls can inherit traits from their fathers, it’s just unlikely.\n\nA child gets one gene for each of their traits, either from their mother or their father. Since girls have a lot more of their mother’s traits, most of their genes also come from their mother. Genes never change, different people just have different combinations of them.",
+				"images": []
+			},
+			{
+				"id": 2,
 				"profile": "DNA gets passed down from parents to children in the form of chromosomes, which are made up of coils of DNA. Every person has 23 pairs of chromosomes (46 chromosomes total), and one of these pairs is the sex chromosomes. Girls have XX and boys have XY for sex chromosomes. One chromosome in each pair is passed down from the mother and one is passed down from the father, except for in the case of sex chromosomes. For sex chromosomes, both the XX are passed down from the mother to daughter and the XY from the father are passed down to the son.\n\nDNA for genes are on the chromosomes, which corresponds to traits such as hair color, eye color, height, etc. One gene corresponds to one trait, for example, there is one gene for hair color that determines your hair color, so you could also say that parents are passing down their traits along with the genes. When two parents have a child, it is randomly selected if a child gets the mother’s or father’s gene for a specific trait. This is why sometimes people can have their mother’s eyes and their father’s nose. Genes do not change throughout a person’s lifetime, regardless of external factors.",
 				"images": []
 			},
@@ -34,11 +39,22 @@
 	},
 	"questions": [
 		{
+			"question": "A child has two copies of most genes.",
+			"image": "",
+			"answer": {
+				"0": false,
+				"1": false,
+				"2": false
+			},
+			"type": "tf"
+		},
+		{
 			"question": "A child’s sex chromosomes comes from both parents",
 			"image": "",
 			"answer": {
 				"0": false,
-				"1": true
+				"1": true,
+				"2": false
 			},
 			"type": "tf"
 		},
@@ -47,7 +63,8 @@
 			"image": "",
 			"answer": {
 				"0": true,
-				"1": false
+				"1": false,
+				"2": false
 			},
 			"type": "tf"
 		},
@@ -56,7 +73,8 @@
 			"image": "",
 			"answer": {
 				"0": false,
-				"1": false
+				"1": false,
+				"2": false
 			},
 			"type": "tf"
 		}

@@ -85,7 +85,7 @@ ChatApp.propTypes = {
   isObserver: React.PropTypes.bool.isRequired,
   roundBegan: React.PropTypes.bool.isRequired,
   roundOver: React.PropTypes.bool.isRequired,
-  gameID: React.PropTypes.number.isRequired
+  gameID: React.PropTypes.any.isRequired
 };
 
 export default ChatApp;
