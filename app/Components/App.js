@@ -38,7 +38,7 @@ class App extends React.Component {
   }
 
   render() {
-    var games = ['rational', 'evolution2', 'chromosomes', 'cell1', 'circles', 'negative', 'algebra'];
+    var games = this.props.route.bundleIds;
     return (
       <div>
         <h1> Welcome to MIT Teaching System Lab's ELK Game </h1>
@@ -64,7 +64,9 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-
+  route: React.PropTypes.shape({
+    bundleIds: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  }).isRequired
 };
 
 export default App;

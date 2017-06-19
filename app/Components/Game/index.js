@@ -91,7 +91,7 @@ class Game extends React.Component {
 
   render() {
     var studentID = 0;
-    var bundle = this.props.route.bundle[this.props.params.bundleID];
+    var bundle = this.props.route.bundleRegistry[this.props.params.bundleID];
     var questionObjects = bundle.questions;
     var quiz = (
         <Quiz 
