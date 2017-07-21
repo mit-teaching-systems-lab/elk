@@ -2,6 +2,9 @@
   "name": "elk",
   "version": "1.0.0",
   "description": "role-play game for teachers to learn and practice how to better elicit learner knowledge",
+  "engines": {
+    "node": "6.11.1"
+  },
   "main": "index.js",
   "scripts": {
     "compile": "webpack",
